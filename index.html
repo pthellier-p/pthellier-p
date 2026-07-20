@@ -1,0 +1,4259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title> Juju Phoenix </title>
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+<link rel="icon" type="favicon/png" href="img/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="favicon/png" href="img/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="favicon/png" href="img/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="favicon/svg+xml" href="img/favicon/favicon.svg" />
+<link rel="shortcut icon" href="favicon/favicon.ico" />
+<link rel="manifest" href="favicon/site.webmanifest" />
+
+
+<script language="javascript">
+<!--
+function BoutonDroit(){
+//2 pour le bouton droit et 1 pour le bouton de gauche
+	if (event.button==2)
+{
+//mettez le texte que vous voulez ci-dessous
+alert('Le bouton droit de la souris a été desactiver');}
+}
+document.onmousedown=BoutonDroit
+
+//-->
+
+</script>
+
+
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+  
+  :root {
+    --primary: #f80161;
+    --primary-dark: #c4014d;
+    --primary-light: #ff005a;
+    --neon-pink: #ff0066;
+  }
+  
+  * {
+    scroll-behavior: smooth;
+  }
+  
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+}
+  
+.nav-link {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+  
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 20px; /* bouts arrondit effet capsule */
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+  
+.nav-link.active::before,
+.nav-link:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+  
+.nav-link.active {
+  color: #fff;
+  text-shadow: 0 0 20px rgba(248, 1, 97, 0.8);
+}
+  
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+  
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+  
+.gradient-border {
+    position: relative;
+    background: #0a0a0a;
+    border-radius: 20px;
+    overflow: hidden;
+}
+  
+.gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: 20px;
+    background: linear-gradient(135deg,#f80161,#ff4081,#f80161);
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    pointer-events: none;   /* ← IMPORTANT */
+}
+  
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+  
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(248, 1, 97, 0.3);
+}
+
+/* ===== GALLERY SECTION ===== */
+#templates {
+    background: var(--dark-bg);
+    max-width: 100%;
+    padding: 10px;
+}  
+
+.gallery-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-item-preview {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border: 1px solid rgba(255, 0, 102, 0.4);
+    border-radius: 4px;
+    background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 100%);
+}
+
+.gallery-item-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .gallery-item-preview img {
+    transform: scale(1.08);
+}
+
+.gallery-item-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 10px;
+    border: 1px solid rgba(255, 0, 102, 0.4);
+    border-radius: 4px;
+    background: rgba(255, 0, 102, 0.05);
+    color: var(--neon-pink, #ff0066);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.gallery-item-label span {
+    margin-top: 4px;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: var(--text-secondary, #999);
+    font-family: sans-serif;
+}
+
+.gallery-item-label:hover {
+    background: rgba(255, 0, 102, 0.15);
+    border-color: var(--neon-pink, #ff0066);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+  
+.gallery-item::after {
+    content: '\f00e';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(248,1,97,.9);
+    color: white;
+    font-size: 2rem;
+    opacity: 0;
+    transition: .3s;
+    pointer-events: none; /* <-- indispensable */
+}
+
+.gallery-item:hover::after {
+    opacity: 1;
+}
+  
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+  
+.gallery-item img {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+  
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+  
+.lightbox.active {
+  display: flex;
+}
+  
+.lightbox img {
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 0 60px rgba(248, 1, 97, 0.5);
+  animation: zoomIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+  
+.lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+  
+.lightbox-close:hover {
+  transform: rotate(90deg) scale(1.1);
+  background: var(--primary-light);
+}
+  
+
+.service-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+  
+.card-hover:hover .service-icon {
+  transform: rotateY(360deg);
+}
+  
+.faq-item {
+  border: 1px solid rgba(248, 1, 97, 0.2);
+  transition: all 0.3s ease;
+}
+  
+.faq-item.active {
+  border-color: var(--primary);
+  background: rgba(248, 1, 97, 0.05);
+}
+  
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+  
+.faq-item.active .faq-answer {
+  max-height: 600px;
+}
+  
+.faq-icon {
+  transition: transform 0.3s ease;
+}
+  
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+  
+.mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+  
+.mobile-menu.active {
+  max-height: 600px;
+}
+  
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(248, 1, 97, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: float 6s ease-in-out infinite;
+}
+  
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -30px); }
+}
+
+
+/* Equalizer PHOENIX */
+
+.gradient-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px; /* espace entre Phoenix et l'equalizer */
+}
+
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  width: 32px;
+  height: 28px;
+  transform: translateY(-5px); /* remonte de 5 pixels */
+}
+
+.equalizer span{
+  width:4px;
+  background:#f80161;
+  border-radius:999px;
+  box-shadow:
+      0 0 6px #f80161,
+      0 0 12px #f80161,
+      0 0 20px rgba(248,1,97,.45);
+  transform-origin:bottom;
+  animation:equalizer 0.9s ease-in-out infinite;
+}
+
+.equalizer span:nth-child(1){animation-delay:-0.45s;}
+.equalizer span:nth-child(2){animation-delay:-0.20s;}
+.equalizer span:nth-child(3){animation-delay:-0.65s;}
+.equalizer span:nth-child(4){animation-delay:-0.10s;}
+.equalizer span:nth-child(5){animation-delay:-0.55s;}
+
+@keyframes equalizer{
+
+  0%,100%{
+      height:8px;
+  }
+
+  25%{
+      height:24px;
+  }
+
+  50%{
+      height:14px;
+  }
+
+  75%{
+      height:28px;
+  }
+}
+
+.logo-text {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #fff, #f80161);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-rotate 6s linear infinite;
+  transform: translateZ(0); /* anti-aliasing */
+}
+
+@keyframes gradient-rotate {
+  0% { background-position: 50% 50%; }
+  100% { background-position: 350% 50%; }
+}
+
+
+.hero-badge{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  background: rgba(255, 51, 102, 0.1);
+
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+
+  position: relative;
+  overflow: hidden;
+
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hero-badge::before {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 51, 102, 0.5), transparent);
+  left: -30px;
+  animation: shimmer 3s ease infinite;
+}
+
+@keyframes shimmer { 
+  0% {
+        left: -30px;
+  }
+
+  100% {
+	left: calc(100% + 30px);
+  }
+}
+
+#typing {
+  font-size: 1.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.heroSwiper .swiper-pagination{
+    bottom:-35px !important;
+}
+
+.heroSwiper .swiper-pagination-bullet{
+    width:55px;
+    height:4px;
+    border-radius:999px;
+    background:#666;
+    opacity:1;
+    margin:0 6px !important;
+    transition:.35s;
+}
+
+.heroSwiper .swiper-pagination-bullet-active{
+    background:#f80161;
+}
+
+
+
+
+  /* Player card */
+
+.hero-player{
+    transform:translateX(-80px);
+}
+
+@media(max-width:1024px){
+    .hero-player{
+        transform:none;
+        margin:0;
+    }
+}
+  .player-card {
+    background:rgba(248,1,97,.13);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width:500px;
+    max-width:100%;
+    margin: 0 auto;
+    transform: translateX(10px); /* décale de 50px vers la droite */
+    box-shadow: 0 24px 80px rgba(247,37,133,0.15);
+  }
+
+  .player-cover {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #1a0530, #4a0070);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .player-cover-inner {
+    font-size: .55rem;
+    font-weight: 900;
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.2;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  .player-cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(247,37,133,0.6), transparent 60%);
+  }
+
+  .player-info { flex: 1; min-width: 0; }
+
+
+  .track-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 2px;
+  }
+
+  .track-artist {
+    font-size: .8rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .waveform {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .waveform-bar {
+    width: 3px;
+    border-radius: 2px;
+    background:#f80161;
+    animation: wave-anim 1s ease-in-out infinite alternate;
+  }
+
+  .waveform-bar.played { background: var(--pink); }
+
+  .waveform-bar:nth-child(1)  { height: 6px;  animation-delay: .0s; }
+  .waveform-bar:nth-child(2)  { height: 14px; animation-delay: .07s; }
+  .waveform-bar:nth-child(3)  { height: 20px; animation-delay: .14s; }
+  .waveform-bar:nth-child(4)  { height: 10px; animation-delay: .21s; }
+  .waveform-bar:nth-child(5)  { height: 24px; animation-delay: .28s; }
+  .waveform-bar:nth-child(6)  { height: 16px; animation-delay: .35s; }
+  .waveform-bar:nth-child(7)  { height: 8px;  animation-delay: .42s; }
+  .waveform-bar:nth-child(8)  { height: 18px; animation-delay: .49s; }
+  .waveform-bar:nth-child(9)  { height: 22px; animation-delay: .56s; }
+  .waveform-bar:nth-child(10) { height: 12px; animation-delay: .63s; }
+  .waveform-bar:nth-child(11) { height: 26px; animation-delay: .7s; }
+  .waveform-bar:nth-child(12) { height: 14px; animation-delay: .77s; }
+  .waveform-bar:nth-child(13) { height: 6px;  animation-delay: .84s; }
+  .waveform-bar:nth-child(14) { height: 18px; animation-delay: .91s; }
+  .waveform-bar:nth-child(15) { height: 10px; animation-delay: .98s; }
+  .waveform-bar:nth-child(16) { height: 22px; animation-delay: .05s; }
+  .waveform-bar:nth-child(17) { height: 16px; animation-delay: .12s; }
+  .waveform-bar:nth-child(18) { height: 8px;  animation-delay: .19s; }
+  .waveform-bar:nth-child(19) { height: 20px; animation-delay: .26s; }
+  .waveform-bar:nth-child(20) { height: 12px; animation-delay: .33s; }
+  .waveform-bar:nth-child(21) { height: 24px; animation-delay: .4s; }
+  .waveform-bar:nth-child(22) { height: 6px;  animation-delay: .47s; }
+  .waveform-bar:nth-child(23) { height: 16px; animation-delay: .54s; }
+  .waveform-bar:nth-child(24) { height: 20px; animation-delay: .61s; }
+  .waveform-bar:nth-child(25) { height: 10px; animation-delay: .68s; }
+  .waveform-bar:nth-child(26) { height: 14px; animation-delay: .75s; }
+  .waveform-bar:nth-child(27) { height: 18px; animation-delay: .82s; }
+  .waveform-bar:nth-child(28) { height: 8px;  animation-delay: .89s; }
+  .waveform-bar:nth-child(29) { height: 22px; animation-delay: .96s; }
+  .waveform-bar:nth-child(30) { height: 14px; animation-delay: .03s; }
+
+  @keyframes wave-anim {
+    from { transform: scaleY(0.5); }
+    to   { transform: scaleY(1); }
+  }
+
+  .progress-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .time { font-size: .7rem; color: var(--muted); min-width: 28px; }
+
+  .progress-track {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 46%;
+    background: var(--pink-grad);
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(247,37,133,0.8);
+  }
+
+  .player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ctrl-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: color .2s, background .2s;
+  }
+
+  .ctrl-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+  .ctrl-btn.pause-btn {
+    width: 44px;
+    height: 44px;
+    background: var(--pink-grad);
+  }
+
+  .ctrl-btn.pause-btn:hover { opacity: .85; background: var(--pink-grad); }
+
+  /* ── VOLUME ── */
+  .volume-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+  }
+
+  .volume-slider-wrap {
+    width: 0;
+    overflow: hidden;
+    transition: width .25s ease;
+  }
+
+  .volume-wrap:hover .volume-slider-wrap,
+  .volume-wrap:focus-within .volume-slider-wrap {
+    width: 72px;
+  }
+
+  .volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 72px;
+    height: 3px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.15);
+    outline: none;
+    cursor: pointer;
+    background-image: linear-gradient(135deg, #f72585, #a855f7);
+    background-size: 80% 100%;
+    background-repeat: no-repeat;
+  }
+
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(247,37,133,0.7);
+    transition: transform .15s;
+  }
+
+  .volume-slider::-webkit-slider-thumb:hover { transform: scale(1.3); }
+
+  .volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 6px rgba(247,37,133,0.7);
+  }
+
+@media (max-width:1024px){
+
+    .hero-player{
+        transform:none;
+        margin:2rem auto;
+        width:100%;
+    }
+
+    .player-card{
+        width:100%;
+        max-width:100%;
+    }
+
+}
+
+@media (max-width:768px){
+
+    #accueil{
+        padding-top:120px;
+    }
+
+    .player-card{
+        transform: none;
+    }
+
+    .player-info{
+        width:100%;
+    }
+
+    .player-controls{
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+
+    .waveform{
+        justify-content:center;
+        overflow:hidden;
+    }
+
+}
+
+    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Montserrat:wght@300;600&display=swap');
+
+/* Player card fin */
+
+
+/* Bouton aller a la page du haut */
+    .back-top {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 45;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(145deg, rgba(255, 0, 102, 0.6), rgba(255, 0, 102, 0.6));
+        color: white;
+        text-decoration: none; /* Supprime le soulignement */
+        border: 1px solid rgba(255, 0, 102, 0.6);
+        box-shadow: 0 18px 36px rgba(255, 0, 102, 0.6);
+  }
+
+/* Texte en dégradé – Des couleurs fluides et éclatantes */
+    .text-gradient-cyber {
+        background: linear-gradient(90deg, #00d4ff, #00ffc8, #ffd700, #ff6b6b, #c678dd, #00d4ff);
+        background-size: 300% 100%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradient-flow 6s ease infinite;
+    }
+    @keyframes gradient-flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+/* ===== Conteneur principal ===== */
+.video-media {
+    position: relative;
+    width: 100%;
+    max-width: 250px;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .35);
+}
+
+/* Image */
+.video-media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+
+/* Zoom au survol */
+.video-media:hover img {
+    transform: scale(1.05);
+}
+
+/* Bouton Play */
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(248, 1, 97, 0.9);
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 25px rgba(248, 1, 97, .7);
+}
+
+/* ========================= */
+/* Tablette */
+/* ========================= */
+@media (max-width: 1024px) {
+    .video-media {
+        max-width: 550px;
+    }
+
+    .play-btn {
+        width: 70px;
+        height: 70px;
+        font-size: 28px;
+    }
+}
+
+/* ========================= */
+/* Mobile */
+/* ========================= */
+@media (max-width: 768px) {
+    .video-media {
+        max-width: 100%;
+        border-radius: 12px;
+    }
+
+    .play-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+}
+
+/* ========================= */
+/* Petit mobile */
+/* ========================= */
+@media (max-width: 480px) {
+    .video-media {
+        border-radius: 10px;
+    }
+
+    .play-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+    .services-panels-wrapper {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .panels-container {
+        display: flex;
+        width: 100%;
+        height: 600px; /* Hauteur fixe pour s'intégrer dans une page */
+        overflow: hidden;
+        border-radius: 2rem;
+ 	margin-left: auto;
+	margin-right: auto;
+    }
+
+    .panel {
+        position: relative;
+        flex: 1;
+        height: 100%;
+        transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid rgba(255,255,255,0.05);
+        overflow: hidden;
+    }
+
+    .panel:last-child { border-right: none; }
+
+    .panel:hover { flex: 3; }
+
+    .panel-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.8;
+        transition: transform 1.2s ease, opacity 0.8s ease;
+        filter: grayscale(100%);
+    }
+
+    .panel:hover .panel-bg {
+        transform: scale(1.05);
+        opacity: 0.4;
+        filter: grayscale(0%);
+    }
+
+    .panel-content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 2rem;
+        width: 100%;
+        transition: all 0.5s ease;
+    }
+
+    .panel-title {
+        font-family: 'Syncopate', sans-serif;
+        font-size: 1.2rem;
+        letter-spacing: 0.4em;
+        writing-mode: vertical-rl;
+        text-transform: uppercase;
+        margin: 0;
+        transition: all 0.5s ease;
+        white-space: nowrap;
+    }
+
+    .panel:hover .panel-title {
+        writing-mode: horizontal-tb;
+        font-size: 1.5rem;
+        letter-spacing: 0.1em;
+        margin-bottom: 1.5rem;
+    }
+
+    .panel-info {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease 0.2s;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .panel:hover .panel-info {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 400px;
+    }
+
+    .neon-text-subtle {
+        text-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        .panels-container {
+            flex-direction: column;
+            height: 900px;
+        }
+        .panel-title {
+            writing-mode: horizontal-tb;
+            font-size: 1.5rem;
+        }
+        .panel:hover {
+            flex: 5;
+        }
+    }
+
+/* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-pink);
+            border-radius: 4px;
+        }
+
+/* ===== ZONE D'EXPOSITION IMAGES ===== */
+
+.expo-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.expo-wrap {
+  width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.expo-wall {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Carte image réglable individuellement */
+.expo-item {
+    width: var(--img-w, 260px);
+    height: var(--img-h, 260px);
+    position: relative;
+    overflow: hidden;  
+    border-radius: 18px;
+    border: var(--border-size) solid rgba(248,1,97,var(--border-opacity));
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 0 18px rgba(248,1,97,.12);
+    transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+.expo-item:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: #f80161;
+    box-shadow: 0 0 25px rgba(248,1,97,.45);
+}
+
+/* Image */
+.expo-item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: var(--fit, cover); /* cover ou contain par image */
+    transition: transform .4s ease;
+}
+
+.expo-item:hover img {
+    transform: scale(1.06);
+}
+
+/* Reflet léger */
+.expo-item::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -80%;
+    width: 60%;
+    height: 200%;
+    z-index: 2;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.28),
+        transparent
+    );
+    transform: rotate(25deg);
+    transition: left .8s ease;
+    pointer-events: none;
+}
+
+.expo-item:hover::before {
+    left: 130%;
+}
+
+/* Légende optionnelle */
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .expo-section {
+        padding: 40px 16px;
+    }
+
+    .expo-item {
+        width: min(var(--img-w, 260px), 90vw);
+        height: auto;
+        aspect-ratio: 1 / 1;
+        background: rgba(10, 10, 20, 0.7);
+    }
+}
+
+
+
+
+
+        .hero-car{
+            position:relative;
+            flex-shrink:0;
+            width:500px;
+            max-width:100%;
+            z-index:5;
+            opacity:1;
+        }
+
+        .avatar-glow{
+            position:absolute;
+            inset:-25px;
+            background:rgba(255,0,102,.25);
+            filter:blur(60px);
+            border-radius:40px;
+            z-index:0;
+        }
+
+        .avatar-card{
+            position:relative;
+            background:#222;
+            border-radius:22px;
+            padding:18px;
+            border:1px solid rgba(255,0,102,.25);
+            box-shadow:0 25px 60px rgba(0,0,0,.6);
+            overflow:hidden;
+            z-index:2;
+            transition:.4s;
+            animation:floatAvatar 5s ease-in-out infinite;
+        }
+
+        .avatar-card:hover{
+            transform:translateY(-12px) scale(1.02);
+            box-shadow:0 35px 80px rgba(0,0,0,.7);
+        }
+
+        .avatar-img{
+            width:100%;
+            display:block;
+            border-radius:14px;
+
+            filter:grayscale(100%);
+            transition:filter .7s ease,
+            transform .5s ease;
+        }
+
+        .avatar-card:hover .avatar-img{
+            filter:grayscale(0%);
+            transform:scale(1.03);
+        }
+
+        .avatar-info{
+            margin-top:18px;
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-end;
+        }
+
+        .avatar-label{
+            display:block;
+            font-size:11px;
+            text-transform:uppercase;
+            color:#b971ff;
+            margin-bottom:6px;
+            letter-spacing:2px;
+        }
+
+        .avatar-info h3{
+            margin:0;
+            color:#fff;
+            font-size:22px;
+        }
+
+        .avatar-star{
+            font-size:26px;
+        }
+
+        @keyframes floatAvatar{
+
+            0%,100%{
+            transform:translateY(0px);
+          }
+
+            50%{
+            transform:translateY(-10px);
+          }
+        }
+
+        @media (max-width: 768px) {
+
+        .hero-content {
+            padding: 0 20px;
+            z-index: 20;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .hero-car {
+            width: 75%;
+            max-width: 280px;
+            margin: 0 auto;
+            order: 2;
+          }
+
+        }
+
+
+
+
+
+/* ===========================
+   FORMULAIRE CONTACT
+=========================== */
+
+#contact-form{
+    position:relative;
+    z-index:2;
+}
+
+#contact-form label{
+    display:block;
+    margin-bottom:8px;
+    font-size:.95rem;
+    font-weight:500;
+    color:#fff;
+}
+
+#contact-form input,
+#contact-form textarea,
+#contact-form select{
+
+    width:100%;
+    padding:14px 18px;
+
+    background:rgba(255,255,255,.05);
+    color:#fff;
+
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:12px;
+
+    transition:.3s;
+
+    outline:none;
+
+    appearance:none;
+    -webkit-appearance:none;
+}
+
+#contact-form input::placeholder,
+#contact-form textarea::placeholder{
+
+    color:rgba(255,255,255,.45);
+
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus,
+#contact-form select:focus{
+
+    border-color:#f80161;
+
+    box-shadow:0 0 15px rgba(248,1,97,.35);
+
+}
+
+/* IMPORTANT */
+
+#contact-form select{
+
+    cursor:pointer;
+
+}
+
+/* Couleur des options */
+
+#contact-form select option{
+
+    background:#161616;
+    color:white;
+
+}
+
+/* textarea */
+
+#contact-form textarea{
+
+    resize:none;
+
+}
+
+/* bouton */
+
+#contact-form button{
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+#contact-form button:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:0 10px 35px rgba(248,1,97,.35);
+
+}
+
+/* Amélioration de l'autocomplétion Chrome */
+
+#contact-form input:-webkit-autofill,
+#contact-form input:-webkit-autofill:hover,
+#contact-form input:-webkit-autofill:focus,
+#contact-form textarea:-webkit-autofill{
+    -webkit-box-shadow:0 0 0 1000px rgba(255,255,255,.05) inset !important;
+    -webkit-text-fill-color:#fff !important;
+    transition:background-color 9999s ease-in-out 0s;
+}
+
+</style>
+</head>
+<body>
+  
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 px-4 py-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="glass rounded-2xl px-4 md:px-8 py-4">
+        <div class="flex items-center justify-between">
+          <a href="#accueil" id="accueilLink1" class="text-2xl font-bold">
+            <span class="gradient-text logo-text"><IMG SRC="img/logophoenix.png">Pнœпıх
+
+                <div class="equalizer" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                </div>
+
+            </span>
+          </a>
+          
+          <!-- Desktop Menu -->
+          <div class="hidden lg:flex items-center gap-1">
+            <a href="#accueil" id="accueilLink2" class="nav-link px-4 py-2 rounded-xl text-sm font-medium">Accueil</a>
+            <a href="#apropos" class="nav-link px-4 py-2 rounded-xl text-sm font-medium">À propos</a>
+            <a href="#services" class="nav-link px-4 py-2 rounded-xl text-sm font-medium">Services</a>
+            <a href="#sprays" class="nav-link px-4 py-2 rounded-xl text-sm font-medium">Sprays</a>
+            <a href="#sites" class="nav-link px-4 py-2 rounded-xl text-sm font-medium">Mes Sites</a>
+            <a href="#templates" class="nav-link px-4 py-2 rounded-xl text-sm font-medium">Templates</a>
+            <a href="#images" class="nav-link px-4 py-2 rounded-xl text-sm font-medium">Images</a>
+            <a href="#liens" class="nav-link px-4 py-2 rounded-xl text-sm font-medium">Liens</a>
+            <a href="#faq" class="nav-link px-4 py-2 rounded-xl text-sm font-medium">FAQ</a>
+            <a href="#contact" class="nav-link px-4 py-2 rounded-lg bg-[#f80161]/90 text-[#ffffff] text-xs">Contact</a>
+          </div>
+          
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" class="lg:hidden text-2xl w-10 h-10 flex items-center justify-center rounded-xl glass">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu lg:hidden">
+          <div class="pt-4 mt-4 border-t border-white/10 grid grid-cols-2 gap-2">
+            <a href="#accueil" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">Accueil</a>
+            <a href="#apropos" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">À propos</a>
+            <a href="#services" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">Services</a>
+            <a href="#sprays" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">Sprays</a>
+            <a href="#sites" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">Mes Sites</a>
+            <a href="#templates" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">Templates</a>
+            <a href="#images" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">Images</a>
+            <a href="#liens" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">Liens</a>
+            <a href="#faq" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">FAQ</a>
+            <a href="#contact" class="nav-link px-4 py-3 rounded-xl text-sm font-medium text-center">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- HERO SECTION -->
+  <section id="accueil" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-8 px-4">
+    <!-- Glow -->
+    <div class="absolute left-20 top-40 w-80 h-80 bg-[#f80161] blur-[140px] rounded-full"></div>
+    <div class="absolute right-10 bottom-20 w-96 h-96 bg-purple-700/20 blur-[180px] rounded-full"></div>
+
+    <div class="max-w-7xl mx-auto px-4 lg:px-12 py-16 lg:py-24 grid lg:grid-cols-2 gap-10 items-center relative z-10">
+
+        <!-- TEXTE -->
+        <div>
+
+            <span class="hero-badge uppercase tracking-[2px] text-[#f80161] border border-[#f80161] px-2 py-1 text-sm">
+                Nouveau Site 2026
+            </span>
+
+            <h1 class="mt-8 text-4xl sm:text-5xl lg:text-6xl font-black leading-none lg:whitespace-nowrap">
+                CRÉATION
+                <span class="text-[#f80161] italic">
+                    DIGITALE
+                </span>
+            </h1>
+
+            <span id="typing"></span><BR>
+<BR>
+
+
+<!-- Mini Music Player -->
+    <div class="hero-player">
+
+      <div class="player-card">
+
+        <div class="player-cover">
+          <div class="player-cover-inner">
+            EUPHORIA<br>
+            MIDNIGHT<br>
+            DRIVE
+          </div>
+        </div>
+
+        <div class="player-info">
+
+          <div class="track-title">
+            Midnight Drive
+          </div>
+
+          <div class="track-artist">
+            Euphoria ✦
+          </div>
+
+          <div class="waveform">
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+            <div class="waveform-bar played"></div>
+
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+          </div>
+
+          <div class="progress-bar-wrap">
+            <span class="time">1:43</span>
+
+            <div class="progress-track">
+              <div class="progress-fill"></div>
+            </div>
+
+            <span class="time">3:54</span>
+          </div>
+
+          <div class="player-controls">
+
+            <button class="ctrl-btn" title="Shuffle">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 3 21 3 21 8"/>
+                <line x1="4" y1="20" x2="21" y2="3"/>
+                <polyline points="21 16 21 21 16 21"/>
+                <line x1="15" y1="15" x2="21" y2="21"/>
+              </svg>
+            </button>
+
+            <button class="ctrl-btn" title="Previous">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="19,20 9,12 19,4"/>
+                <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+
+            <button class="ctrl-btn pause-btn" title="Pause">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16"/>
+                <rect x="14" y="4" width="4" height="16"/>
+              </svg>
+            </button>
+
+            <button class="ctrl-btn" title="Next">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5,4 15,12 5,20"/>
+                <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+
+            <div class="volume-wrap">
+              <button class="ctrl-btn volume-btn" title="Volume">
+                <svg class="vol-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <path class="vol-lines" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                </svg>
+              </button>
+
+              <div class="volume-slider-wrap">
+                <input
+                  type="range"
+                  class="volume-slider"
+                  min="0"
+                  max="100"
+                  value="80"
+                  title="Volume"
+                >
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+            <p class="mt-8 text-gray-400 leading-8 max-w-xl">
+		Fusionner le code, l'art visuel et la culture gaming. De l'architecture web aux textures de sprays immersives, je bâtis des terminaux d'expériences non-linéaires.
+            </p>
+
+            <!-- CTA -->
+
+            <div class="mt-10 flex flex-wrap gap-5">
+
+                <a href="#services"
+                    class="bg-[#f80161] hover:bg-[#cb014f] transition px-8 py-4 rounded-xl font-semibold">
+
+                    Découvrir mes créations
+
+                </a>
+
+                <a href="#contact"
+                    class="border border-white/20 hover:border-[#f80161] px-8 py-4 rounded-xl">
+
+                    Me contacter
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- IMAGE -->
+
+<div class="relative flex justify-center">
+
+    <div class="absolute w-80 h-80 bg-pink-500/20 blur-[120px] rounded-full"></div>
+
+    <div class="swiper heroSwiper relative max-w-md w-full">
+
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+                <img src="img/presentation1.png"
+                    class="rounded-3xl shadow-[0_0_60px_rgba(248,1,97,.25)] w-full object-cover">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="img/presentation2.png"
+                    class="rounded-3xl shadow-[0_0_60px_rgba(248,1,97,.25)] w-full object-cover">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="img/presentation3.png"
+                    class="rounded-3xl shadow-[0_0_60px_rgba(248,1,97,.25)] w-full object-cover">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="img/presentation4.png"
+                    class="rounded-3xl shadow-[0_0_60px_rgba(248,1,97,.25)] w-full object-cover">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="img/presentation5.png"
+                    class="rounded-3xl shadow-[0_0_60px_rgba(248,1,97,.25)] w-full object-cover">
+            </div>
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+
+    </div>
+
+</div>
+
+        <!-- Social sidebar -->
+        <div class="hidden lg:flex flex-col gap-6 fixed right-8 top-42 z-40">
+            <a href="https://www.facebook.com/thellierp" target="_blank" class="w-10 h-10 flex items-center justify-center border border-[#f80161] hover:border-[#bb0149] hover:bg-blue-900 transition-all rounded-xl"><i class="fab fa-facebook-f"></i></a>
+
+            <a href="https://www.instagram.com/jujufeenomen" target="_blank" class="w-10 h-10 flex items-center justify-center border border-[#f80161] hover:bg-gradient-to-br hover:from-yellow-400
+        	  hover:via-pink-500 hover:to-purple-700  hover:bg-pink-500/10 transition-all rounded-xl"><i class="fab fa-instagram"></i></a>
+
+            <a href="https://www.youtube.com/@jujupaix" target="_blank" class="w-10 h-10 flex items-center justify-center border border-[#f80161] hover:border-[#bb0149] hover:bg-[#d70000] transition-all rounded-xl"><i class="fab fa-youtube"></i></a>
+
+            <a href="https://steamcommunity.com/profiles/76561198076266728" target="_blank" class="w-10 h-10 flex items-center justify-center border border-[#f80161] hover:border-[#bb0149] hover:bg-[#181e26] transition-all rounded-xl"><i class="fab fa-steam"></i></a>
+
+            <a href="https://www.reddit.com/user/Other_Trifle319" target="_blank" class="w-10 h-10 flex items-center justify-center border border-[#f80161] hover:border-[#bb0149] hover:bg-[#f74401] transition-all rounded-xl"><i class="fab fa-reddit"></i></a>
+
+
+            <a href="https://fr.pinterest.com/justypaix" target="_blank" class="w-10 h-10 flex items-center justify-center border border-[#f80161] hover:border-[#bb0149] hover:bg-[#d70000] transition-all rounded-xl"><i class="fab fa-pinterest"></i></a>
+        </div>
+
+        <div class="absolute bottom-12 left-1/2 hidden md:flex flex-col items-center">
+            <div class="text-white/40 text-xs tracking-widest mb-2">SCROLL</div>
+	    <i class="fa-solid fa-chevron-down animate-bounce"></i>
+        </div>
+
+    </div>
+  </section>
+  
+  <!-- A PROPOS SECTION -->
+
+  <section id="apropos" class="py-4 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+
+            <div class="flex items-center gap-4 mb-6">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+
+                <h2 class="text-4xl md:text-5xl font-bold whitespace-nowrap">
+                À <span class="gradient-text">Propos</span></h2>
+
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+            </div>
+
+        </div>
+      
+      <div class="grid md:grid-cols-[1.6fr_1fr] gap-12 items-center">
+        <div class="gradient-border p-4 md:p-12">
+          <h3 class="text-3xl font-bold mb-6">ヅuju⭕ƒɛɛnŏmɛñ Walk-in</h3>
+          <p class="text-gray-300 mb-5 leading-relaxed">
+            Passionné par le code et la création numérique, j'aime travailler aussi bien avec le HTML que sur les différents codes liés au jeu Counter-Strike: Source. 
+          <p class="text-gray-300 mb-5 leading-relaxed">
+            Je prends plaisir à développer des sites web, concevoir leur apparence et créer des visuels adaptés à leurs besoins.
+                      </p>
+          <p class="text-gray-300 mb-5 leading-relaxed">
+            J'aime également réaliser des images et des sprays personnalisés pour Counter-Strike: Source, ce qui me permet d'allier créativité et technique.
+            Pour moi, coder est autant un loisir qu'une façon de donner vie à mes idées et de développer constamment de nouvelles compétences.
+          </p>
+          <p class="text-gray-300 mb-5 leading-relaxed">
+            Codeur et créatif dans l'âme, je propose mes services pour tous vos projets : sites web, sprays, retouches d'images. 
+          </p>
+          <p class="text-gray-300 mb-5 leading-relaxed">
+            Animé par le codage et la création graphique.
+          </p>
+
+          <div class="flex flex-wrap gap-4">
+            <div class="flex items-center gap-2 px-4 py-2 rounded-xl glass">
+              <i class="fas fa-check-circle text-[#f80161]"></i>
+              <span class="text-sm">Design sur mesure</span>
+            </div>
+            <div class="flex items-center gap-2 px-4 py-2 rounded-xl glass">
+              <i class="fas fa-check-circle text-[#f80161]"></i>
+              <span class="text-sm">Spray personnalisé</span>
+            </div>
+            <div class="flex items-center gap-2 px-4 py-2 rounded-xl glass">
+              <i class="fas fa-check-circle text-[#f80161]"></i>
+              <span class="text-sm">Retouches d'images</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="space-y-6">
+         
+        <div class="hero-car">
+
+            <div class="avatar-glow"></div>
+
+            <div class="avatar-card">
+
+                <img src="img/profil1.png" alt="Profil" class="avatar-img">
+
+                <div class="avatar-info">
+
+                    <div>
+                        <span class="avatar-label">MON AVATAR</span>
+                        <h3>ヅuju⭕ƒɛɛnŏmɛñ Walk-in</h3>
+                    </div>
+
+                    <span class="avatar-star">✨</span>
+
+                </div>
+
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SERVICES SECTION -->
+
+    <section id="services" class="py-4 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+
+            <div class="flex items-center gap-4 mb-6">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+
+                <h2 class="text-4xl md:text-5xl font-bold whitespace-nowrap">
+                Mes <span class="gradient-text">Services</span></h2>
+
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+            </div>
+
+        </div>
+
+    <!-- NOUVELLE GRILLE INTERACTIVE (PANELS) -->
+
+    <div class="panels-container mb-16 border border-zinc-900 shadow-2xl" style="height:420px;">
+      
+      <!-- Service 1 -->
+
+<div class="panel group relative bg-zinc-900/40">
+    <div class="panel-bg" style="background-image: url('img/gaming.png');"></div>
+
+    <div class="panel-content relative">
+
+        <!-- Badge GRATUIT -->
+
+        <div class="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500">
+            <div class="flex items-center gap-2 bg-black/70 backdrop-blur-md border border-[#f80161] rounded-full px-3 py-1 shadow-lg shadow-[#f80161]/20">
+                <div class="relative flex items-center justify-center">
+                    <span class="absolute w-2 h-2 bg-[#f80161] rounded-full animate-ping"></span>
+                    <span class="relative w-2 h-2 bg-[#f80161] rounded-full"></span>
+                </div>
+
+                <span class="text-[10px] font-bold uppercase tracking-widest text-[#f80161]">
+                    Gratuit
+                </span>
+            </div>
+        </div>
+
+        <h3 class="panel-title font-bold text-[#f80161]">
+            CREATION
+        </h3>
+
+        <div class="panel-info">
+
+            <p class="text-white mb-6 text-sm md:text-base">
+                Je peux créer gratuitement des <Font color="#f80161"><b>sprays</b></Font> pour le jeu <A HREF="https://store.steampowered.com/app/240/CounterStrike_Source/" target="_blank"><Font color="#9f9f9f">Counter-Strike: Source</Font></A>.<br>
+                Envoyez vos idées et je réalise votre spray personnalisé prêt à importer sans frais.
+            </p>
+
+            <a href="#sprays" class="inline-block">
+                <button class="text-xs font-bold tracking-widest uppercase border border-[#f80161] px-6 py-2 rounded-full hover:bg-[#f80161] transition-all">
+                    Galerie Sprays
+                </button>
+            </a>
+            <a href="#contact" class="inline-block">
+                <button class="text-xs font-bold tracking-widest uppercase border border-[#f80161] px-6 py-2 rounded-full hover:bg-[#f80161] transition-all">
+                    Contact
+                </button>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+      <!-- Service 2 -->
+<div class="panel group relative bg-zinc-900/20">
+    <div class="panel-bg" style="background-image: url('img/presentation1.png');"></div>
+
+    <div class="panel-content relative">
+
+        <!-- Badge GRATUIT -->
+        <div class="absolute top-4 right-4 z-20
+                    opacity-0 -translate-y-3 scale-95
+                    group-hover:opacity-100
+                    group-hover:translate-y-0
+                    group-hover:scale-100
+                    transition-all duration-500 ease-out">
+
+            <div class="flex items-center gap-2 bg-black/70 backdrop-blur-md border border-green-400 rounded-full px-3 py-1 shadow-lg shadow-green-400/20">
+                <div class="relative flex items-center justify-center">
+                    <span class="absolute w-2 h-2 bg-green-400 rounded-full animate-ping"></span>
+                    <span class="relative w-2 h-2 bg-green-400 rounded-full"></span>
+                </div>
+
+                <span class="text-[10px] font-bold uppercase tracking-widest text-green-400">
+                    Gratuit
+                </span>
+            </div>
+        </div>
+
+        <h3 class="panel-title font-bold text-green-400">
+            DIGITAL
+        </h3>
+
+        <div class="panel-info">
+            <p class="text-white mb-6 text-sm md:text-base">
+                Une envie de retoucher une image, un texte, un logo ou de changer la couleur.<br>
+                Je vous propose de me la présenter et de voir ce qui a moyen de faire.
+            </p>
+
+            <a href="#images" class="inline-block">
+            <button class="text-xs font-bold tracking-widest uppercase border border-green-400/50 px-6 py-2 rounded-full hover:bg-green-400 hover:text-black transition-all">
+                MES IMAGES
+            </button>
+            </a>
+            <a href="#contact" class="inline-block">
+            <button class="text-xs font-bold tracking-widest uppercase border border-green-400/50 px-6 py-2 rounded-full hover:bg-green-400 hover:text-black transition-all">
+                 ME CONTACTER
+            </button>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+      <!-- Service 3 -->
+<div class="panel group relative bg-zinc-900/40">
+    <div class="panel-bg" style="background-image: url('img/SiteHTML.png');"></div>
+
+    <div class="panel-content relative">
+
+        <!-- Badge GRATUIT -->
+
+        <div class="absolute top-4 right-4 z-20
+                    opacity-0 -translate-y-3 scale-95
+                    group-hover:opacity-100
+                    group-hover:translate-y-0
+                    group-hover:scale-100
+                    transition-all duration-500 ease-out">
+
+            <div class="flex items-center gap-2 bg-black/70 backdrop-blur-md border border-purple-500 rounded-full px-3 py-1 shadow-lg shadow-purple-500/20">
+                <div class="relative flex items-center justify-center">
+                    <span class="absolute w-2 h-2 bg-purple-500 rounded-full animate-ping"></span>
+                    <span class="relative w-2 h-2 bg-purple-500 rounded-full"></span>
+                </div>
+
+                <span class="text-[10px] font-bold uppercase tracking-widest text-purple-500">
+                    Gratuit
+                </span>
+            </div>
+        </div>
+
+        <h3 class="panel-title font-bold text-purple-500">
+            WEB
+        </h3>
+
+        <div class="panel-info">
+            <p class="text-white mb-6 text-sm md:text-base">
+                Je peux créer gratuitement <Font color="#f80161"><b>votre site web</b></Font>.<br>
+                Choisissez une template dans la galerie et indiquez la Template sélectionnée <br>			Je reviendrais vers vous.
+            </p>
+
+            <a href="#templates" class="inline-block">
+                <button class="text-xs font-bold tracking-widest uppercase border border-purple-500/50 px-6 py-2 rounded-full hover:bg-purple-500 transition-all">
+                    Galerie Templates
+                </button>
+            </a>
+            <a href="#contact" class="inline-block">
+                <button class="text-xs font-bold tracking-widest uppercase border border-purple-500/50 px-6 py-2 rounded-full hover:bg-purple-500 transition-all">
+                    Contact
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- STATS ORIGINALES RÉORGANISÉES -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" style="max-width:1355px; margin-left:auto; margin-right:auto; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:-30px;">
+
+      <div class="card card-hover bg-zinc-900/50 backdrop-blur-md border border-white/5 rounded-3xl p-4 text-center group hover:border-pink-500/30 transition-all">
+        <div class="text-3xl font-black text-white mb-2 group-hover:scale-110 transition-transform">+50</div>
+        <div class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Projets de Spray</div>
+      </div>
+
+      <div class="card card-hover bg-zinc-900/50 backdrop-blur-md border border-white/5 rounded-3xl p-4 text-center group hover:border-pink-500/30 transition-all">
+        <div class="text-3xl font-black text-white mb-2 group-hover:scale-110 transition-transform">48H</div>
+        <div class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Spray Délivré</div>
+      </div>
+
+      <div class="card card-hover bg-zinc-900/50 backdrop-blur-md border border-white/5 rounded-3xl p-4 text-center group hover:border-pink-500/30 transition-all">
+        <div class="text-3xl font-black text-white mb-2 group-hover:scale-110 transition-transform">100%</div>
+        <div class="text-zinc-500 uppercase tracking-widest text-xs font-bold">Durable</div>
+      </div>
+
+
+  </div>
+  </section>
+  
+  <!-- SPRAYS SECTION -->
+
+<section id="sprays" class="py-4 px-4">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="mb-12">
+
+            <!-- Titre -->
+            <div class="flex items-center gap-4 mb-10">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+
+                <h2 class="text-4xl md:text-5xl font-bold whitespace-nowrap">
+                    Mes <span class="gradient-text">Sprays</span>
+                </h2>
+
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+            </div>
+
+            <!-- Contenu -->
+            <div class="flex flex-col md:flex-row items-center gap-12">
+
+                <div class="w-full bg-gray-900/60 border border-[#f80161]/30 rounded-2xl p-8 backdrop-blur-sm shadow-xl">
+
+                    <div class="flex flex-col lg:flex-row items-center gap-8">
+
+                        <!-- Texte -->
+                        <div class="flex-1">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <h2 class="text-3xl font-bold text-white">
+                Sprays gratuits pour
+                <span class="text-[#f80161]">Counter-Strike: Source</span>
+                </h2>
+                
+                <a href="https://store.steampowered.com/app/240/CounterStrike_Source/" target="_blank" class="inline-flex items-center justify-center gap-2 px-8 py-1.5 rounded-xl bg-[#f80161]/90 hover:bg-[#cb014f] transition text-white font-semibold shadow-lg whitespace-nowrap w-full sm:w-auto">
+	        🎮 Voir le jeu Counter Strike Source
+		    </a>
+		</div>
+
+                <div class="mt-8"></div>
+
+                <p class="text-gray-300 leading-8 text-lg mb-6">
+                    Création et personnalisation de sprays adaptés au format du jeu.
+                    Transformez n'importe quelle image en spray de haute qualité,
+                    prêt à être utilisé directement dans
+                    <span class="text-[#f80161]">Counter-Strike: Source</span>.
+                </p>
+
+                <!-- Outils + Vidéo -->
+                <div class="flex flex-col lg:flex-row items-start justify-between gap-8 mt-4">
+
+                    <!-- Partie gauche -->
+                    <div class="flex-1">
+
+                        <!-- Technologies -->
+                        <div class="flex flex-wrap gap-3 mb-6">
+                            <span class="text-gray-400 self-center">
+                                Outils pour mes créations :
+                            </span>
+
+                            <span class="px-4 py-2 rounded-full bg-[#f80161]/20 text-[#f80161] font-medium inline-flex items-center gap-2">
+                                <img src="img/liens/photoscapex2.png" alt="PhotoScape X" class="w-5 h-5">
+                                <A HREF="#liens">Photoscape X</A>
+                            </span>
+
+                            <span class="px-4 py-2 rounded-full bg-[#f80161]/20 text-[#f80161] font-medium inline-flex items-center gap-2">
+                                <img src="img/liens/paint.png" alt="Paint" class="w-5 h-5">
+                                <A HREF="#liens">Paint</A>
+                            </span>
+
+                            <span class="px-4 py-2 rounded-full bg-[#f80161]/20 text-[#f80161] font-medium inline-flex items-center gap-2">
+                                <img src="img/liens/vtfedit.png" alt="VTFEdit" class="w-5 h-5">
+                                <A HREF="#liens">VTFEdit</A>
+                            </span>
+                        </div>
+
+<!-- Formats + Bouton -->
+<div class="flex flex-wrap items-center justify-between gap-4 mt-6">
+
+    <!-- Partie gauche -->
+    <div class="flex items-center flex-wrap gap-3">
+
+        <span class="text-gray-400">
+            Disponible en :
+        </span>
+
+        <span class="px-4 py-1 rounded-full bg-green-500/20 text-green-400 font-semibold">
+            VTF
+        </span>
+
+        <span class="text-gray-500">&</span>
+
+        <span class="px-4 py-1 rounded-full bg-blue-500/20 text-blue-400 font-semibold">
+            TGA
+        </span>
+
+                <a href="#contact" class="inline-flex items-center justify-center gap-2 px-8 py-1.5 rounded-xl bg-[#f80161]/90 hover:bg-[#cb014f] transition text-white font-semibold shadow-lg whitespace-nowrap w-full sm:w-auto">
+	        <i class="fa-solid fa-highlighter"></i> Demande de Spray
+		    </a>
+
+    </div>
+
+</div>
+
+                    </div>
+
+                    <!-- Vidéo -->
+                    <div class="w-full md:w-80 flex justify-center md:-mt-8">
+
+                        <div class="video-media rounded-xl overflow-hidden shadow-xl border border-[#f80161]/30">
+
+                            <img src="img/spraycss.png"
+                                 alt="Aperçu vidéo"
+                                 class="w-full">
+
+                            <button class="play-btn"
+                                    onclick="window.open('https://www.youtube.com/watch?v=cdLQ3-t3GXE', '_blank')">
+                                <span>▶</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+<div class="mt-8"></div>
+
+        <!-- Galerie -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Anciens.gif')">
+          <img src="img/sprays/Anciens.gif" alt="Anciens" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/GoldenDemon.gif')">
+          <img src="img/sprays/GoldenDemon.gif" alt="Golden Demon" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Toobeeyyy.gif')">
+          <img src="img/sprays/Toobeeyyy.gif" alt="Toobeeyyy" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/TeamHellz.gif')">
+          <img src="img/sprays/TeamHellz.gif" alt="Team Hellz" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/JujuPhoenix.gif')">
+          <img src="img/sprays/JujuPhoenix.gif" alt="Juju Phoenix" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/KamikazeBlue.gif')">
+          <img src="img/sprays/KamikazeBlue.gif" alt="Kamikaze Blue" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/AirMax.gif')">
+          <img src="img/sprays/AirMax.gif" alt="Air Max" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/TeamAnciens.gif')">
+          <img src="img/sprays/TeamAnciens.gif" alt="Team Anciens" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Nounouille.gif')">
+          <img src="img/sprays/Nounouille.gif" alt="Nounouille" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Locke.gif')">
+          <img src="img/sprays/Locke.gif" alt="Locke" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/TeamHellz2.gif')">
+          <img src="img/sprays/TeamHellz2.gif" alt="Team Hellz" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Ailes.gif')">
+          <img src="img/sprays/Ailes.gif" alt="Ailes" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Dragon.gif')">
+          <img src="img/sprays/Dragon.gif" alt="Dragon" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/IPDiacre.gif')">
+          <img src="img/sprays/IPDiacre.gif" alt="IP Diacre" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/FuckYou.gif')">
+          <img src="img/sprays/FuckYou.gif" alt="Fuck You" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/JujuRaimbow.gif')">
+          <img src="img/sprays/JujuRaimbow.gif" alt="Juju Raimbow" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Rone.gif')">
+          <img src="img/sprays/Rone.gif" alt="R one" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/JujuRevolution.gif')">
+          <img src="img/sprays/JujuRevolution.gif" alt="Juju Revolution" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Iceman.gif')">
+          <img src="img/sprays/Iceman.gif" alt="Iceman" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/WalkIn.gif')">
+          <img src="img/sprays/WalkIn.gif" alt="Walk In" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/gg.gif')">
+          <img src="img/sprays/gg.gif" alt="Good Game" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Demon.gif')">
+          <img src="img/sprays/Demon.gif" alt="Demon" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Salvezza.gif')">
+          <img src="img/sprays/Salvezza.gif" alt="Salvezza" class="w-full h-full object-cover">
+        </div>
+
+        <div class="gallery-item rounded-2xl overflow-hidden glass aspect-square" onclick="openLightbox('img/sprays/Anonimous.gif')">
+          <img src="img/sprays/Anonimous.gif" alt="Anonimous" class="w-full h-full object-cover">
+        </div>
+
+        </div>
+
+    </div>
+</section>
+  
+  <!-- MES SITES SECTION -->
+
+    <section id="sites" class="py-4 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+
+            <div class="flex items-center gap-4 mb-6">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+
+                <h2 class="text-4xl md:text-5xl font-bold whitespace-nowrap">
+                Mes <span class="gradient-text">Sites</span></h2>
+
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+            </div>
+
+        </div>
+      <div class="grid md:grid-cols-3 gap-8">
+
+  <!-- MES SITES 1 -->
+        
+    <!-- CARTE 1 -->
+<a href="https://sites.google.com/view/anciens" target="_blank"
+   class="relative w-full h-[280px]
+          bg-zinc-900 border border-zinc-700 rounded-3xl
+          overflow-hidden
+          transition-all duration-300
+          hover:border-[#f80161]
+          hover:bg-[#1a0a12]
+          hover:shadow-[0_0_30px_#f80161]">
+
+    <!-- Badge Live -->
+    <div class="absolute top-4 right-4 z-20 bg-black/90 border border-green-400 px-3 py-2 rounded-xl flex items-center gap-2 shadow-lg">
+        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        <div class="leading-none">
+            <div class="text-green-400 text-[10px] font-bold uppercase">
+                EN DIRECT
+            </div>
+            <div class="text-white text-[9px] uppercase">
+                SITE EN LIGNE
+            </div>
+        </div>
+    </div>
+
+    <!-- Image -->
+    <div class="h-[230px] overflow-hidden">
+        <img src="img/messites/SiteAncienGoogle.png"
+             alt="Anciens"
+             class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+    </div>
+
+    <!-- Texte -->
+    <div class="h-[50px] flex items-center justify-center">
+        <span class="uppercase font-bold text-white tracking-wider">
+            Δŋc̱ɪɛŋs
+        </span>
+    </div>
+
+</a>
+
+    <!-- CARTE 2 -->
+<a href="https://sites.google.com/view/djusty" target="_blank"
+   class="relative w-full h-[280px]
+          bg-zinc-900 border border-zinc-700 rounded-3xl
+          overflow-hidden
+          transition-all duration-300
+          hover:border-[#f80161]
+          hover:bg-[#1a0a12]
+          hover:shadow-[0_0_30px_#f80161]">
+
+    <!-- Badge Live -->
+    <div class="absolute top-4 right-4 z-20 bg-black/90 border border-green-400 px-3 py-2 rounded-xl flex items-center gap-2 shadow-lg">
+        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        <div class="leading-none">
+            <div class="text-green-400 text-[10px] font-bold uppercase">
+                EN DIRECT
+            </div>
+            <div class="text-white text-[9px] uppercase">
+                SITE EN LIGNE
+            </div>
+        </div>
+    </div>
+
+    <!-- Image -->
+    <div class="h-[230px] overflow-hidden">
+        <img src="img/messites/SiteDjustyGoogle.png"
+             alt="Djusty"
+             class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+    </div>
+
+    <!-- Texte -->
+    <div class="h-[50px] flex items-center justify-center">
+        <span class="uppercase font-bold text-white tracking-wider">
+            DJUSTY
+        </span>
+    </div>
+
+</a>
+
+    <!-- CARTE 3 -->
+<a href="https://jujuphoenix.netlify.app" target="_blank"
+   class="relative w-full h-[280px]
+          bg-zinc-900 border border-zinc-700 rounded-3xl
+          overflow-hidden
+          transition-all duration-300
+          hover:border-[#f80161]
+          hover:bg-[#1a0a12]
+          hover:shadow-[0_0_30px_#f80161]">
+
+    <!-- Badge Live -->
+    <div class="absolute top-4 right-4 z-20 bg-black/90 border border-green-400 px-3 py-2 rounded-xl flex items-center gap-2 shadow-lg">
+        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        <div class="leading-none">
+            <div class="text-green-400 text-[10px] font-bold uppercase">
+                EN DIRECT
+            </div>
+            <div class="text-white text-[9px] uppercase">
+                SITE EN LIGNE
+            </div>
+        </div>
+    </div>
+
+    <!-- Image -->
+    <div class="h-[230px] overflow-hidden">
+        <img src="img/messites/ProjetSitePhoenix4.png"
+             alt="Site Phoenix"
+             class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+    </div>
+
+    <!-- Texte -->
+    <div class="h-[50px] flex items-center justify-center">
+        <span class="uppercase font-bold text-white tracking-wider">
+            PHOENIX 4
+        </span>
+    </div>
+
+</a>
+
+
+    <!-- CARTE 4 -->
+<a href="https://prisevueft.netlify.app" target="_blank"
+   class="relative w-full h-[280px]
+          bg-zinc-900 border border-zinc-700 rounded-3xl
+          overflow-hidden
+          transition-all duration-300
+          hover:border-[#f80161]
+          hover:bg-[#1a0a12]
+          hover:shadow-[0_0_30px_#f80161]">
+
+    <!-- Badge Live -->
+    <div class="absolute top-4 right-4 z-20 bg-black/90 border border-green-400 px-3 py-2 rounded-xl flex items-center gap-2 shadow-lg">
+        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        <div class="leading-none">
+            <div class="text-green-400 text-[10px] font-bold uppercase">
+                EN DIRECT
+            </div>
+            <div class="text-white text-[9px] uppercase">
+                SITE EN LIGNE
+            </div>
+        </div>
+    </div>
+
+    <!-- Image -->
+    <div class="h-[230px] overflow-hidden">
+        <img src="img/messites/SitePriseVueFT.png"
+             alt="PriseVueFT"
+             class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+    </div>
+
+    <!-- Texte -->
+    <div class="h-[50px] flex items-center justify-center">
+        <span class="uppercase font-bold text-white tracking-wider">
+            PriseVueFT
+        </span>
+    </div>
+
+</a>
+
+    <!-- CARTE 5 -->
+<div class="relative w-full h-[280px]
+          bg-zinc-900 border border-zinc-700 rounded-3xl
+          overflow-hidden
+          transition-all duration-300
+          hover:border-[#f80161]
+          hover:bg-[#1a0a12]
+          hover:shadow-[0_0_30px_#f80161]
+          cursor-pointer">
+
+    <!-- Badge Live -->
+    <div class="absolute top-4 right-4 z-20 bg-black/90 border border-[#f80161] px-3 py-2 rounded-xl flex items-center gap-2 shadow-lg">
+        <div class="w-2 h-2 bg-[#f80161] rounded-full animate-pulse"></div>
+        <div class="leading-none">
+            <div class="text-[#f80161] text-[10px] font-bold uppercase">
+                HORS LIGNE
+            </div>
+            <div class="text-white text-[9px] uppercase">
+                SITE HORS LIGNE
+            </div>
+        </div>
+    </div>
+
+    <!-- Image -->
+    <div class="h-[230px] overflow-hidden">
+        <img src="img/messites/ProjetSitePhoenix1.png"
+             alt="Site Phoenix" onclick="openLightbox('img/messites/ProjetSitePhoenix1.png')">
+    </div>
+
+    <!-- Texte -->
+    <div class="h-[50px] flex items-center justify-center">
+        <span class="uppercase font-bold text-white tracking-wider">
+            PHOENIX
+        </span>
+    </div>
+</div>    
+
+    <!-- CARTE 6 -->
+<div class="relative w-full h-[280px]
+          bg-zinc-900 border border-zinc-700 rounded-3xl
+          overflow-hidden
+          transition-all duration-300
+          hover:border-[#f80161]
+          hover:bg-[#1a0a12]
+          hover:shadow-[0_0_30px_#f80161]
+          cursor-pointer">
+
+    <!-- Badge Live -->
+    <div class="absolute top-4 right-4 z-20 bg-black/90 border border-[#f80161] px-3 py-2 rounded-xl flex items-center gap-2 shadow-lg">
+        <div class="w-2 h-2 bg-[#f80161] rounded-full animate-pulse"></div>
+        <div class="leading-none">
+            <div class="text-[#f80161] text-[10px] font-bold uppercase">
+                HORS LIGNE
+            </div>
+            <div class="text-white text-[9px] uppercase">
+                SITE HORS LIGNE
+            </div>
+        </div>
+    </div>
+
+    <!-- Image -->
+    <div class="h-[230px] overflow-hidden">
+        <img src="img/messites/ProjetSitePhoenix2.png"
+             alt="Site Phoenix" onclick="openLightbox('img/messites/ProjetSitePhoenix2.png')">
+    </div>
+
+    <!-- Texte -->
+    <div class="h-[50px] flex items-center justify-center">
+        <span class="uppercase font-bold text-white tracking-wider">
+            PHOENIX 2
+        </span>
+    </div>
+
+</div>    
+
+
+    <!-- CARTE 7 -->
+<div class="relative w-full h-[280px]
+          bg-zinc-900 border border-zinc-700 rounded-3xl
+          overflow-hidden
+          transition-all duration-300
+          hover:border-[#f80161]
+          hover:bg-[#1a0a12]
+          hover:shadow-[0_0_30px_#f80161]
+          cursor-pointer">
+
+    <!-- Badge Live -->
+    <div class="absolute top-4 right-4 z-20 bg-black/90 border border-[#f80161] px-3 py-2 rounded-xl flex items-center gap-2 shadow-lg">
+        <div class="w-2 h-2 bg-[#f80161] rounded-full animate-pulse"></div>
+        <div class="leading-none">
+            <div class="text-[#f80161] text-[10px] font-bold uppercase">
+                HORS LIGNE
+            </div>
+            <div class="text-white text-[9px] uppercase">
+                SITE HORS LIGNE
+            </div>
+        </div>
+    </div>
+
+    <!-- Image -->
+    <div class="h-[230px] overflow-hidden">
+        <img src="img/messites/ProjetSitePhoenix3.png"
+             alt="Site Phoenix" onclick="openLightbox('img/messites/ProjetSitePhoenix3.png')">
+    </div>
+
+    <!-- Texte -->
+    <div class="h-[50px] flex items-center justify-center">
+        <span class="uppercase font-bold text-white tracking-wider">
+            PHOENIX 3
+        </span>
+    </div>
+
+</div>    
+
+    <!-- CARTE 8 -->
+<div class="relative w-full h-[280px]
+          bg-zinc-900 border border-zinc-700 rounded-3xl
+          overflow-hidden
+          transition-all duration-300
+          hover:border-[#f80161]
+          hover:bg-[#1a0a12]
+          hover:shadow-[0_0_30px_#f80161]
+          cursor-pointer">
+
+    <!-- Badge Live -->
+    <div class="absolute top-4 right-4 z-20 bg-black/90 border border-[#f80161] px-3 py-2 rounded-xl flex items-center gap-2 shadow-lg">
+        <div class="w-2 h-2 bg-[#f80161] rounded-full animate-pulse"></div>
+        <div class="leading-none">
+            <div class="text-[#f80161] text-[10px] font-bold uppercase">
+                HORS LIGNE
+            </div>
+            <div class="text-white text-[9px] uppercase">
+                SITE HORS LIGNE
+            </div>
+        </div>
+    </div>
+
+    <!-- Image -->
+    <div class="h-[230px] overflow-hidden">
+        <img src="img/messites/ProjetPotager.png"
+             alt="Le potager" onclick="openLightbox('img/messites/ProjetPotager.png')">
+    </div>
+
+    <!-- Texte -->
+    <div class="h-[50px] flex items-center justify-center">
+        <span class="uppercase font-bold text-white tracking-wider">
+            Projet Le potager
+        </span>
+    </div>
+
+</div>    
+
+
+
+      </div>
+    </div>
+  </section>
+  
+  <!-- TEMPLATES SECTION -->
+
+    <section id="templates" class="py-4 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+
+            <div class="flex items-center gap-4 mb-6">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+
+                <h2 class="text-4xl md:text-5xl font-bold whitespace-nowrap">
+                Mes <span class="gradient-text">Templates</span></h2>
+
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+            </div>
+
+                <p class="text-gray-400 text-lg">Designs prêts à l'emploi pour vos projets. Choisissez une template (son numéro et/ou son nom) et envoyez-moi un message dans contact.</p>
+        </div>
+      
+        <div class="gallery-grid">
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template1.png')">
+                    <img src="img/templates/template1.png" alt="Template 1">
+                </div>
+                <div class="gallery-item-label">
+                    Template 1
+                    <span>FUN</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template2.png')">
+                    <img src="img/templates/template2.png" alt="Template 2">
+                </div>
+                <div class="gallery-item-label">
+                    Template 2
+                    <span>PRO</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template3.png')">
+                    <img src="img/templates/template3.png" alt="Template 3">
+                </div>
+                <div class="gallery-item-label">
+                    Template 3
+                    <span>EXPERIENCES</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template4.png')">
+                    <img src="img/templates/template4.png" alt="Template 4">
+                </div>
+                <div class="gallery-item-label">
+                    Template 4
+                    <span>DIGITAL</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template5.png')">
+                    <img src="img/templates/template5.png" alt="Template 5">
+                </div>
+                <div class="gallery-item-label">
+                    Template 5
+                    <span>FUTUR</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template6.png')">
+                    <img src="img/templates/template6.png" alt="Template 6">
+                </div>
+                <div class="gallery-item-label">
+                    Template 6
+                    <span>NEURALE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template7.png')">
+                    <img src="img/templates/template7.png" alt="Template 7">
+                </div>
+                <div class="gallery-item-label">
+                    Template 7
+                    <span>IMMERSIVE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template8.png')">
+                    <img src="img/templates/template8.png" alt="Template 8">
+                </div>
+                <div class="gallery-item-label">
+                    Template 8
+                    <span>NUMERIQUE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template9.png')">
+                    <img src="img/templates/template9.png" alt="Template 9">
+                </div>
+                <div class="gallery-item-label">
+                    Template 9
+                    <span>SCINTILLE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template10.png')">
+                    <img src="img/templates/template10.png" alt="Template 10">
+                </div>
+                <div class="gallery-item-label">
+                    Template 10
+                    <span>GENERATION</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template11.png')">
+                    <img src="img/templates/template11.png" alt="Template 11">
+                </div>
+                <div class="gallery-item-label">
+                    Template 11
+                    <span>DOMINER</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template12.png')">
+                    <img src="img/templates/template12.png" alt="Template 12">
+                </div>
+                <div class="gallery-item-label">
+                    Template 12
+                    <span>CROISSANCE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template13.png')">
+                    <img src="img/templates/template13.png" alt="Template 13">
+                </div>
+                <div class="gallery-item-label">
+                    Template 13
+                    <span>MEMORABLE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template14.png')">
+                    <img src="img/templates/template14.png" alt="Template 14">
+                </div>
+                <div class="gallery-item-label">
+                    Template 14
+                    <span>COMMUNICATION</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template15.png')">
+                    <img src="img/templates/template15.png" alt="Template 15">
+                </div>
+                <div class="gallery-item-label">
+                    Template 15
+                    <span>PERFORMANTE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template16.png')">
+                    <img src="img/templates/template16.png" alt="Template 16">
+                </div>
+                <div class="gallery-item-label">
+                    Template 16
+                    <span>AUDACIEUSE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template17.png')">
+                    <img src="img/templates/template17.png" alt="Template 17">
+                </div>
+                <div class="gallery-item-label">
+                    Template 17
+                    <span>IMPACT</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template18.png')">
+                    <img src="img/templates/template18.png" alt="Template 18">
+                </div>
+                <div class="gallery-item-label">
+                    Template 18
+                    <span>PUISSANT</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template19.png')">
+                    <img src="img/templates/template19.png" alt="Template 19">
+                </div>
+                <div class="gallery-item-label">
+                    Template 19
+                    <span>LANCEMENT</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template20.png')">
+                    <img src="img/templates/template20.png" alt="Template 20">
+                </div>
+                <div class="gallery-item-label">
+                    Template 20
+                    <span>GAMING</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template21.png')">
+                    <img src="img/templates/template21.png" alt="Template 21">
+                </div>
+                <div class="gallery-item-label">
+                    Template 21
+                    <span>NOUVEAU</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template22.png')">
+                    <img src="img/templates/template22.png" alt="Template 22">
+                </div>
+                <div class="gallery-item-label">
+                    Template 22
+                    <span>POUVOIR</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template23.png')">
+                    <img src="img/templates/template23.png" alt="Template 23">
+                </div>
+                <div class="gallery-item-label">
+                    Template 23
+                    <span>MULTIPLIE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template24.png')">
+                    <img src="img/templates/template24.png" alt="Template 24">
+                </div>
+                <div class="gallery-item-label">
+                    Template 24
+                    <span>CROISSANT</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template25.png')">
+                    <img src="img/templates/template25.png" alt="Template 25">
+                </div>
+                <div class="gallery-item-label">
+                    Template 25
+                    <span>BEAUTE</span>
+                </div>
+                </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template26.png')">
+                    <img src="img/templates/template26.png" alt="Template 26">
+                </div>
+                <div class="gallery-item-label">
+                    Template 26
+                    <span>STRATEGIE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template27.png')">
+                    <img src="img/templates/template27.png" alt="Template 27">
+                </div>
+                <div class="gallery-item-label">
+                    Template 27
+                    <span>REUSSITE</span>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-item-preview" onclick="openLightbox('img/templates/template28.png')">
+                    <img src="img/templates/template28.png" alt="Template 28">
+                </div>
+                <div class="gallery-item-label">
+                    Template 28
+                    <span>INTENSE</span>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+  </section>
+  
+  <!-- IMAGES SECTION -->
+
+    <section id="images" class="py-4 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+
+            <div class="flex items-center gap-4 mb-6">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+
+                <h2 class="text-4xl md:text-5xl font-bold whitespace-nowrap">
+                Mes <span class="gradient-text">Images</span></h2>
+
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+            </div>
+        </div>
+      
+    <div class="expo-wrap">
+      <div class="expo-wall">
+
+
+    <!-- IMG TEL -->
+        <div class="expo-item" style="--img-w: 220px; --img-h: 320px; --fit: cover;"      onclick="openLightbox('img/phoenix/Phoenix23.jpg')">
+          <img class="gallery-img" src="img/phoenix/Phoenix23.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 220px; --img-h: 320px; --fit: cover;" onclick="openLightbox('img/phoenix/PhonixOrdi.jpg')">
+          <img class="gallery-img" src="img/phoenix/PhonixOrdi.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 220px; --img-h: 320px; --fit: cover;" onclick="openLightbox('img/phoenix/noname.png')">
+          <img class="gallery-img" src="img/phoenix/noname.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 220px; --img-h: 320px; --fit: cover;"      onclick="openLightbox('img/phoenix/PhoenixStreetArt2.png')">
+          <img class="gallery-img" src="img/phoenix/PhoenixStreetArt2.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 220px; --img-h: 320px; --fit: cover;" onclick="openLightbox('img/phoenix/Phoenix21.png')">
+          <img class="gallery-img" src="img/phoenix/Phoenix21.png">
+        </div>
+
+
+    <!-- IMG ECRAN -->
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/RAZER-Phoenix1000.jpg')">
+          <img class="gallery-img" src="img/phoenix/RAZER-Phoenix1000.jpg"">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/PhoenixRAZER.png')">
+          <img class="gallery-img" src="img/phoenix/PhoenixRAZER.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix154.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix154.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix1.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix1.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix153.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix153.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix20.png')">
+          <img class="gallery-img" src="img/phoenix/phoenix20.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/IA-Phoenix.jpg')">
+          <img class="gallery-img" src="img/phoenix/IA-Phoenix.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix7.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix7.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix2.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix2.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix5.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix5.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix8.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix8.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix10.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix10.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix3.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix3.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix4.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix4.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix6.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix6.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix11.png')">
+          <img class="gallery-img" src="img/phoenix/phoenix11.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix122.png')">
+          <img class="gallery-img" src="img/phoenix/phoenix122.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix188.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix188.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix14.png')">
+          <img class="gallery-img" src="img/phoenix/phoenix14.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 320px; --img-h: 220px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix15.png')">
+          <img class="gallery-img" src="img/phoenix/phoenix15.png">
+        </div>
+
+
+    <!-- IMG CARRE -->
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/415645645w.jpg')">
+          <img class="gallery-img" src="img/phoenix/415645645w.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/564646565ainbow.jpg')">
+          <img class="gallery-img" src="img/phoenix/564646565ainbow.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/313113ow.jpg')">
+          <img class="gallery-img" src="img/phoenix/313113ow.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/546642188u.jpg')">
+          <img class="gallery-img" src="img/phoenix/546642188u.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/46565546.jpg')">
+          <img class="gallery-img" src="img/phoenix/46565546.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/896356464.jpg')">
+          <img class="gallery-img" src="img/phoenix/896356464.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/6456645w.jpg')">
+          <img class="gallery-img" src="img/phoenix/6456645w.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/5645546.jpg')">
+          <img class="gallery-img" src="img/phoenix/5645546.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/66464564.jpg')">
+          <img class="gallery-img" src="img/phoenix/66464564.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 260px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/566546564.jpg')">
+          <img class="gallery-img" src="img/phoenix/566546564.jpg">
+        </div>
+
+
+    <!-- IMG GRAND ECRAN -->
+        <div class="expo-item" style="--img-w: 380px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/Phoenix25.jpg')">
+          <img class="gallery-img" src="img/phoenix/Phoenix25.jpg">
+        </div>
+
+        <div class="expo-item" style="--img-w: 380px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix17.png')">
+          <img class="gallery-img" src="img/phoenix/phoenix17.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 380px; --img-h: 260px; --fit: cover;" onclick="openLightbox('img/phoenix/Phoenix21.jpg')">
+          <img class="gallery-img" src="img/phoenix/Phoenix21.jpg">
+        </div>
+
+
+    <!-- IMG GRAND TEL -->
+        <div class="expo-item" style="--img-w: 240px; --img-h: 360px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix15.png')">
+          <img class="gallery-img" src="img/phoenix/phoenix15.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 240px; --img-h: 360px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix14.png')">
+          <img class="gallery-img" src="img/phoenix/phoenix14.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 240px; --img-h: 360px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix122.png')">
+          <img class="gallery-img" src="img/phoenix/phoenix122.png">
+        </div>
+
+        <div class="expo-item" style="--img-w: 240px; --img-h: 360px; --fit: cover;" onclick="openLightbox('img/phoenix/phoenix9.jpg')">
+          <img class="gallery-img" src="img/phoenix/phoenix9.jpg">
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  </section>
+  
+  <!-- LIENS SECTION -->
+
+    <section id="liens" class="py-4 px-4">
+
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16">
+
+            <div class="flex items-center gap-4 mb-6">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+
+                <h2 class="text-4xl md:text-5xl font-bold whitespace-nowrap">
+                Liens <span class="gradient-text">Utiles</span></h2>
+
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+            </div>
+
+        </div>
+
+              <!-- START.ME -->
+
+<A HREF="https://start.me/p/L1rEYQ/osint4all" target="blank">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div class="p-3 bg-cyan-500/5 border border-cyan-500/20 rounded-lg transition-all duration-300 hover:border-[#f80161] hover:shadow-[0_0_20px_rgba(248,1,97,0.6)]">
+
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="px-2 py-0.5 bg-cyan-500/20 border border-cyan-500/30 rounded text-cyan-400 text-xs font-bold">START.ME</span>
+                  <span class="text-cyan-500 text-xs">Gestionnaire de favoris</span>
+                 <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center ml-auto">
+                 <IMG SRC="img/liens/startme.png">
+              </div>
+              </div>
+                <p class="text-gray-500 text-xs">Le gestionnaire de favoris de start.me vous permet d'organiser tous vos sites Web favoris sur un tableau de bord personnalisable. Sur ce start.me, retrouvez tous les liens utiles dans votre quotidien pour vos recherches. De nombreuses références à consulter.</p>
+               </div>
+</A>
+
+              <!-- TINYWOW -->
+
+<a href="https://tinywow.com/" target="_blank" class="block">
+    <div class="p-3 bg-gray-500/5 border border-gray-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+        <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-gray-500/20 border border-gray-500/30 rounded text-gray-300 text-xs font-bold">
+                TINYWOW
+            </span>
+
+            <span class="text-gray-500 text-xs">
+                Plateforme d'outils
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-gray-500/10 border border-gray-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/tinywow.png" alt="TinyWow">
+            </div>
+        </div>
+
+        <p class="text-gray-500 text-xs">
+            TinyWow est une plateforme qui propose divers outils gratuits pour la gestion de vos images, vidéos, PDF et autres fichiers. Service de conversion de fichiers. Combine la conversion de fichiers audio, vidéo, images, fichiers divers et l'intelligence artificielle.
+        </p>
+
+    </div>
+</a>
+
+              <!-- PAINT -->
+
+<a href="https://paint.fr.softonic.com/?ex=RAMP-4479.1&rex=true" target="_blank" class="block">
+    <div class="p-3 bg-green-500/5 border border-green-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+        <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-green-500/20 border border-green-500/30 rounded text-green-400 text-xs font-bold">
+                PAINT
+            </span>
+
+            <span class="text-green-500 text-xs">
+                Programme d'art numérique
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/paint.png" alt="Paint">
+            </div>
+        </div>
+
+        <p class="text-gray-500 text-xs">
+            Paint est une application d'édition graphique polyvalente et intuitive sous Windows qui vous permet de créer, modifier et manipuler des images et des dessins. Paint est idéal pour recadrer, redimensionner, dessiner des images et pour y ajouter des formes et du texte simple.
+        </p>
+
+    </div>
+</a>
+
+              <!-- PHOTOSCAPE X -->
+
+<a href="https://photoscape-x.fr.softonic.com/?ex=RAMP-4479.1&rex=true" target="_blank" class="block">
+    <div class="p-3 bg-blue-500/5 border border-blue-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+        <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-blue-500/20 border border-blue-500/30 rounded text-blue-400 text-xs font-bold">
+                PHOTOSCAPE X
+            </span>
+
+            <span class="text-blue-500 text-xs">
+                Éditeur d'images
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/photoscapex2.png" alt="PhotoScape X">
+            </div>
+        </div>
+
+        <p class="text-gray-500 text-xs">
+            PhotoScape X est un logiciel de photographie conçu pour rendre l'édition de photos simple et accessible aux débutants. Il offre un ensemble complet d'outils d'édition, d'effets et de filtres, sans la complexité d'un logiciel d'édition professionnel.
+        </p>
+
+    </div>
+</a>
+
+              <!-- PINTEREST -->
+
+<a href="https://fr.pinterest.com/justypaix/template/" target="_blank" class="block">
+    <div class="p-3 bg-purple-500/5 border border-purple-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+        <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-purple-500/20 border border-purple-500/30 rounded text-purple-400 text-xs font-bold">
+                Pinterest
+            </span>
+
+            <span class="text-purple-500 text-xs">
+                 Plateforme d'images
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/pinterest.png" alt="Pinterest">
+            </div>
+        </div>
+
+                <p class="text-gradient-cyber text-xs">Exposition de mes templates. <p class="text-gray-500 text-xs">Pinterest est un réseau social de partage d'images et de vidéos collectées sur internet qui permet à ses utilisateurs de créer des albums relatifs à leurs passions et de les enregistrer et les partager.</p></p>
+
+    </div>
+</a>
+
+              <!-- RGBA COLOR PICKER -->
+
+<a href="https://rgbacolorpicker.com" target="_blank" class="block">
+              <div class="p-3 bg-pink-500/5 border border-pink-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+                <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-pink-500/20 border border-pink-500/30 rounded text-pink-400 text-xs font-bold">
+                RGBA Color Picker
+            </span>
+
+            <span class="text-pink-500 text-xs">
+                 Couleurs RGBA
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/rgbacolorpicker.png" alt="RGBA Color Picker">
+            </div>
+        </div>
+
+                <p class="text-gray-500 text-xs">Le RGBA Color Picker est un sélecteur de couleurs prenant en charge la transparence en mode RGBA. De plus, le plugin permet de personnaliser la palette de couleurs selon vos préférences et peut être mis à jour via la fonctionnalité de mise à jour de WordPress.</p></p>
+
+    </div>
+</a>
+
+
+              <!-- ENCYCOLORPEDIA -->
+
+<a href="https://encycolorpedia.fr" target="_blank" class="block">
+              <div class="p-3 bg-orange-500/5 border border-orange-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+                <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-orange-500/20 border border-orange-500/30 rounded text-orange-400 text-xs font-bold">
+                Encycolorpedia
+            </span>
+
+            <span class="text-orange-500 text-xs">
+                 Couleurs
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/encycolorpedia.png" alt="Encycolorpedia">
+            </div>
+        </div>
+
+                <p class="text-gray-500 text-xs">Encycolorpedia est un outil complet d'analyse des couleurs offrant un large éventail de fonctionnalités pour vous aider à identifier, assortir et explorer des palettes de couleurs. Codes couleur hexadécimaux, couleurs HTML, correspondance de teintes, annuaire.</p></p>
+
+    </div>
+</a>
+
+
+              <!-- EMOJIDB -->
+
+<a href="https://emojidb.org" target="_blank" class="block">
+              <div class="p-3 bg-red-500/5 border border-red-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+                <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-red-500/20 border border-red-500/30 rounded text-red-400 text-xs font-bold">
+                EmojiDB
+            </span>
+
+            <span class="text-red-500 text-xs">
+                 Tous les Emojis
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/emojidb.png" alt="Emojis">
+            </div>
+        </div>
+
+                <p class="text-gray-500 text-xs">EmojiDB est une base de données à la recherche de tous les émojis existant sur le web. Trouvez des émojis c'est facile. Petite image utilisée dans un message électronique pour exprimer une émotion, représenter un personnage, des objets, des lieux, des animaux. </p></p>
+
+    </div>
+</a>
+
+
+              <!-- FONTS GOOGLE -->
+
+<a href="https://fonts.google.com" target="_blank" class="block">
+              <div class="p-3 bg-yellow-500/5 border border-yellow-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+                <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-yellow-500/20 border border-yellow-500/30 rounded text-yellow-400 text-xs font-bold">
+                Fonts Google
+            </span>
+
+            <span class="text-yellow-500 text-xs">
+                 Fonts Google
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/fontsgoggle.png" alt="Fonts Google">
+            </div>
+        </div>
+
+                <p class="text-gray-500 text-xs">Rendre le Web plus beau, plus rapide et plus ouvert grâce à une typographie de qualité. Google Fonts collabore avec des créateurs de caractères, des fonderies typographiques et la communauté du design du monde entier pour créer un répertoire de polices open source. </p></p>
+
+    </div>
+</a>
+
+              <!-- VTFEDIT -->
+
+<a href="https://nemstools.github.io/pages/VTFLib-Download.html" target="_blank" class="block">
+              <div class="p-3 bg-pink-500/5 border border-pink-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+                <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-pink-500/20 border border-pink-500/30 rounded text-pink-400 text-xs font-bold">
+                VTFEdit
+            </span>
+
+            <span class="text-pink-500 text-xs">
+                 Spray
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/vtfedit2.png" alt="VTFEdit">
+            </div>
+        </div>
+
+                <p class="text-gray-500 text-xs">Il s'agit d'un outil doté d'une interface graphique basée sur .NET, destiné à la création et à la conversion de fichiers VTF et VMT. C'est un outil puissant permettant de convertir divers formats de fichiers vers ou depuis le format VTF, en prenant en charge tous les formats de texture du moteur Source. </p></p>
+
+    </div>
+</a>
+
+              <!-- CORRECTEUR ORTHOGRAPHE -->
+
+<a href="https://corrector.co/fr/correcteur-orthographe" target="_blank" class="block">
+              <div class="p-3 bg-cyan-500/5 border border-cyan-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+                <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-cyan-500/20 border border-cyan-500/30 rounded text-cyan-400 text-xs font-bold">
+                Corrector
+            </span>
+
+            <span class="text-cyan-500 text-xs">
+                 Spray
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/correcteur.png" alt="Correcto">
+            </div>
+        </div>
+
+                <p class="text-gray-500 text-xs">Corrector est le nouveau correcteur d’orthographe en ligne, conçu pour les personnes qui ont peu de temps et beaucoup de mots à corriger. Utilisez notre correcteur français gratuit avant de livrer votre travail ou d’envoyer un email professionnel. Tous nos outils sont gratuits et n’ont aucune restriction d’utilisation. </p></p>
+
+    </div>
+</a>
+
+              <!-- DREAMSCAPE -->
+
+<a href="https://deepai.org/machine-learning-model/dreamscape-generator" target="_blank" class="block">
+              <div class="p-3 bg-gray-500/5 border border-gray-500/20 rounded-lg
+                transition-all duration-300
+                hover:border-[#f80161]
+                hover:bg-[#f80161]/5
+                hover:shadow-[0_0_30px_rgba(248,1,97,0.8)]
+                hover:-translate-y-1">
+
+                <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 bg-gray-500/20 border border-gray-500/30 rounded text-gray-300 text-xs font-bold">
+                Dreamscape
+            </span>
+
+            <span class="text-gray-500 text-xs">
+                 Générateur d'images
+            </span>
+
+            <div class="w-10 h-10 rounded-lg bg-gray-500/10 border border-gray-500/30 flex items-center justify-center ml-auto">
+                <img src="img/liens/dreamscape.png" alt="Correcto">
+            </div>
+        </div>
+
+                <p class="text-gray-500 text-xs">Le générateur d'images par IA est un outil conçu pour transformer de simples descriptions textuelles en images, en alliant votre créativité aux capacités de l'intelligence artificielle. Mettez-le au défi avec une idée comme un ballon en forme de [n'importe quelle extravagance] et laissez l'IA opérer sa magie ! </p></p>
+
+    </div>
+</a>
+
+            </div>
+    </div>
+  </section>
+  
+  <!-- FAQ SECTION -->
+
+    <section id="faq" class="py-4 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+
+            <div class="flex items-center gap-4 mb-6">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+
+                <h2 class="text-4xl md:text-5xl font-bold whitespace-nowrap">
+                F <span class="gradient-text">A</span> Q</h2>
+
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+            </div>
+
+                <p class="text-gray-400 text-lg">Questions fréquemment posées</p>
+        </div>
+
+    <!-- FAQ 1 -->      
+
+      <div class="space-y-4">
+        <div class="faq-item glass rounded-2xl p-6 cursor-pointer">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold pr-4">Comment faire une demande de site web ?</h3>
+            <i class="fas fa-plus faq-icon text-[#f80161] text-xl"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-400 mt-4 pt-4 border-t border-white/10">
+              Il vous suffit de cliquer sur le <u>bouton</u> <Font color="#FF3467">Contact</Font> que vous pouvez trouver en haut a <Font color="#FF3467">Droite</Font> ou dans <Font color="#FF3467">Services</Font> et de remplir le formulaire de demande. <br>Je prendrais connaissance de votre mail ainsi que votre message. <br><br>Pensez à mettre un mail correct et de donner une bonne déscription de ce que vous aimeriez en indiquant : <br><br>
+ - Les couleurs désirés.<br>
+ - Les boutons de navigation (Accueil, A propos etc...) et d'indiquer le nombre de liens de navigation.<br>
+ - Préciser la template 1 ou 2 etc...
+<br><br>
+De <Font color="#FF3467">bon coeur</Font> et <Font color="#FF3467">gratuitement</Font>, je vous confectionnerais un site fonctionnel.<br>
+Avec votre mail, je viendrais prendre des infos supplémentaires au cas si besoin.
+            </p>
+          </div>
+        </div>
+
+    <!-- FAQ 2 -->      
+
+        <div class="faq-item glass rounded-2xl p-6 cursor-pointer">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold pr-4">Comment faire une demande de spray ?</h3>
+            <i class="fas fa-plus faq-icon text-[#f80161] text-xl"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-400 mt-4 pt-4 border-t border-white/10">
+             Il vous suffit de cliquer sur le <u>bouton</u> <Font color="#FF3467">Contact</Font> que vous pouvez trouver en haut a <Font color="#FF3467">Droite</Font> ou dans <Font color="#FF3467">Sprays</Font> et de remplir le formulaire de demande. <br>Je prendrais connaissance de votre mail ainsi que votre message.<br><br>
+Pensez à mettre un mail correct et de donner une bonne déscription du spray désiré en précisant ce que vous aimeriez : <br>
+ - Les couleurs désirés, formes, dessin.<br>
+ - Si besoin donner moi un lien (http://) d'une image que vous aimeriez.
+<br><br> 
+De <Font color="#FF3467">bon coeur</Font> et <Font color="#FF3467">gratuitement</Font>, je vous confectionnerais un spray pour votre jeu  Counter-Strike: Source.<br>
+Avec votre mail, je viendrais prendre des infos supplémentaires au cas si besoin.
+            </p>
+          </div>
+        </div>
+
+    <!-- FAQ 3 -->      
+
+        <div class="faq-item glass rounded-2xl p-6 cursor-pointer">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold pr-4">Est-ce que ces services sont gratuits ?</h3>
+            <i class="fas fa-plus faq-icon text-[#f80161] text-xl"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-400 mt-4 pt-4 border-t border-white/10">
+              Oui ! Toutes les demandes de sites, de spray et/ou de retouches d'images sont gratuites.
+            </p>
+          </div>
+        </div>
+
+    <!-- FAQ 4 -->      
+
+        <div class="faq-item glass rounded-2xl p-6 cursor-pointer">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold pr-4">Je n'arrive pas a mettre mon spray ?</h3>
+            <i class="fas fa-plus faq-icon text-[#f80161] text-xl"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-400 mt-4 pt-4 border-t border-white/10">
+              Il faut le mettre a cet emplacement <Font color="#FF3467">"C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Source\cstrike\materials\vgui\logos\ui\<Font color="#f80161">MesSprays</Font>" </Font>quitte a créer des dossiers pour les placer. <br><br>
+Seul le dernier dossier <Font color="#f80161">MesSprays</Font> peux être appelé autrement. Les autres, les laisser comme ils sont marqués. <br><br>
+N'hésitez pas à me faire un mail et je viendrais en direct vous aider à le placer en vous guidant.
+            </p>
+          </div>
+        </div>
+
+    <!-- FAQ 5 -->      
+
+        <div class="faq-item glass rounded-2xl p-6 cursor-pointer">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold pr-4">Pouvez-vous m'aider dans mon site web ?</h3>
+            <i class="fas fa-plus faq-icon text-[#f80161] text-xl"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-400 mt-4 pt-4 border-t border-white/10">
+              Si je peux, avec plaisir. Je peux vous le créer à votre image, personnalisable avec ma petite connaissance. On échangera beaucoup d'informations, mais oui je peux vous le faire comme vous désirez, que ce soit les couleurs, les formes, vos plaisirs, vos désirs.
+            </p>
+          </div>
+        </div>
+
+    <!-- FIN FAQ -->      
+
+
+      </div>
+    </div>
+  </section>
+  
+  <!-- CONTACT SECTION -->
+
+<section id="contact" class="py-4 px-4">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="text-center mb-16">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+
+        <h2 class="text-4xl md:text-5xl font-bold whitespace-nowrap">
+          Me <span class="gradient-text">Contacter</span>
+        </h2>
+
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#f80161] to-transparent"></div>
+      </div>
+    </div>
+
+    <div class="gradient-border p-8 md:p-10">
+
+      <form
+        id="contact-form"
+        name="contact"
+        method="POST"
+        netlify
+        netlify-honeypot="bot-field"
+        class="space-y-6">
+
+        <!-- Nécessaire pour Netlify -->
+        <input type="hidden" name="form-name" value="contact">
+
+        <!-- Protection anti-spam -->
+        <p hidden>
+          <label>
+            Ne remplissez pas ce champ :
+            <input name="bot-field">
+          </label>
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+
+          <div>
+            <label class="block text-sm font-medium mb-2">
+              Nom
+            </label>
+
+            <input
+              type="text"
+              name="nom"
+              required
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-[#f80161] focus:outline-none transition-colors"
+              placeholder="Votre nom">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">
+              Email
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              required
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-[#f80161] focus:outline-none transition-colors"
+              placeholder="votre@email.com">
+          </div>
+
+        </div>
+
+        <div>
+
+          <label class="block text-sm font-medium mb-2">
+            Type de projet
+          </label>
+
+          <select
+            name="projet"
+            required
+            class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-[#f80161] focus:outline-none transition-colors">
+
+            <option value="">Sélectionnez un service</option>
+            <option value="spray">Spray Custom</option>
+            <option value="template">Template Web</option>
+            <option value="overlay">Retouche d'image</option>
+            <option value="message">Écrire un message</option>
+
+          </select>
+
+        </div>
+
+        <div>
+
+          <label class="block text-sm font-medium mb-2">
+            Message
+          </label>
+
+          <textarea
+            name="message"
+            required
+            rows="5"
+            class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-[#f80161] focus:outline-none transition-colors resize-none"
+            placeholder="Décrivez votre projet en détail..."></textarea>
+
+        </div>
+
+        <button
+          type="submit"
+          class="w-full px-8 py-4 rounded-xl bg-gradient-to-r from-[#f80161] to-[#f80161] font-semibold text-lg hover:scale-105 transition-transform">
+
+          Envoyer le message
+          <i class="fas fa-paper-plane ml-2"></i>
+
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+</section>
+
+  <!-- FOOTER -->
+
+<footer class="py-12 px-4 border-t border-white/10">
+
+  <div class="max-w-7xl mx-auto px-6">
+
+
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-10">
+
+
+      <!-- GAUCHE : Phoenix -->
+      <div class="space-y-4 text-center lg:text-left">
+
+        <div class="text-4xl font-bold">
+          <span class="gradient-text logo-text flex items-center justify-center lg:justify-start">
+
+            <img src="img/logophoenix.png"
+                 class="inline w-12 mr-3"
+                 alt="Phoenix Logo">
+
+            Pнœпıх
+
+          </span>
+        </div>
+
+
+        <p class="text-sm text-[#f80161] max-w-md leading-relaxed">
+          Propulsé par une curiosité sans fin pour le monde digital.
+          <br>
+          Conçu pour inspirer. Codé pour durer.
+        </p>
+
+
+      </div>
+
+
+
+
+      <!-- CENTRE : Disponibilité -->
+      <div class="flex flex-col items-center gap-3">
+
+
+        <div class="relative">
+
+          <div class="absolute inset-0 
+                      bg-[#f80161] blur-xl opacity-40">
+          </div>
+
+
+          <div class="relative flex items-center gap-3 
+                      px-6 py-3
+                      rounded-full
+                      border border-[#f80161]/30
+                      bg-white/5
+                      backdrop-blur">
+
+
+            <div class="relative">
+
+              <span class="absolute inset-0 
+                           rounded-full
+                           bg-[#f80161]
+                           animate-ping">
+              </span>
+
+              <span class="relative block 
+                           w-3 h-3
+                           bg-[#f80161]
+                           rounded-full">
+              </span>
+
+            </div>
+
+
+            <span class="text-sm text-white/90">
+              Disponible pour missions
+            </span>
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- DROITE : Réseaux -->
+      <div class="flex flex-col items-center lg:items-end gap-4">
+
+
+        <span class="text-xs uppercase tracking-widest text-gray-500">
+          Mes liens
+        </span>
+
+
+        <div class="flex gap-4">
+
+
+          <a href="https://www.facebook.com/thellierp"
+             target="_blank"
+             class="w-10 h-10 rounded-xl 
+                    bg-gradient-to-br from-blue-600 to-blue-800
+                    flex items-center justify-center text-2xl
+                    hover:scale-110 transition">
+
+            <i class="fab fa-facebook-f"></i>
+
+          </a>
+
+
+
+          <a href="https://www.instagram.com/jujufeenomen"
+             target="_blank"
+             class="w-10 h-10 rounded-xl
+                    bg-gradient-to-br from-pink-600 to-orange-600
+                    flex items-center justify-center text-2xl
+                    hover:scale-110 transition">
+
+            <i class="fab fa-instagram"></i>
+
+          </a>
+
+
+
+          <a href="https://www.youtube.com/@jujupaix"
+             target="_blank"
+             class="w-10 h-10 rounded-xl
+                    bg-gradient-to-br from-red-600 to-red-800
+                    flex items-center justify-center text-2xl
+                    hover:scale-110 transition">
+
+            <i class="fab fa-youtube"></i>
+
+          </a>
+
+
+
+          <a href="https://steamcommunity.com/profiles/76561198076266728"
+             target="_blank"
+             class="w-10 h-10 rounded-xl
+                    bg-gradient-to-br from-gray-600 to-gray-800
+                    flex items-center justify-center text-2xl
+                    hover:scale-110 transition">
+
+            <i class="fab fa-steam"></i>
+
+          </a>
+
+
+
+          <a href="https://www.reddit.com/user/Other_Trifle319"
+             target="_blank"
+             class="w-10 h-10 rounded-xl
+                    bg-gradient-to-br from-orange-600 to-orange-800
+                    flex items-center justify-center text-2xl
+                    hover:scale-110 transition">
+
+            <i class="fab fa-reddit"></i>
+
+          </a>
+
+
+
+          <a href="https://fr.pinterest.com/justypaix"
+             target="_blank"
+             class="w-10 h-10 rounded-xl
+                    bg-gradient-to-br from-purple-600 to-purple-800
+                    flex items-center justify-center text-2xl
+                    hover:scale-110 transition">
+
+            <i class="fab fa-pinterest"></i>
+
+          </a>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- BAS -->
+    <div class="mt-12 pt-6 border-t border-white/10
+                flex flex-col md:flex-row
+                justify-between items-center gap-3
+                text-xs text-gray-500">
+
+      <span>
+        © 2026 ★ PHOENIX ★ TOUS DROITS RÉSERVÉS.
+      </span>
+
+
+      <span>
+        Design by <Font color="#FFFFFF">ヅuju⭕ƒɛɛnŏmɛñ Walk-in</Font>
+      </span>
+
+
+</footer>
+
+<a class="back-top" href="#accueil" id="accueilLink3">↑</a>
+  
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-close" onclick="closeLightbox()">
+      <i class="fas fa-times text-xl"></i>
+    </div>
+    <img id="lightbox-img" src="" alt="Lightbox" onclick="event.stopPropagation()">
+  </div>
+  
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      const icon = mobileMenuBtn.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+    
+    // Close mobile menu on link click
+    document.querySelectorAll('#mobile-menu .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+      });
+    });
+    
+    // Active Navigation Link
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    function updateActiveLink() {
+      const scrollY = window.pageYOffset;
+      
+      sections.forEach(section => {
+        const sectionHeight = section.offsetHeight;
+        const sectionTop = section.offsetTop - 150;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', updateActiveLink);
+    updateActiveLink();
+    
+    // Lightbox
+    function openLightbox(src) {
+    console.log("openLightbox appelée", src);
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+}
+    
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // Close lightbox on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+    
+    // FAQ Accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const wasActive = item.classList.contains('active');
+        
+        // Close all items
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('active');
+        });
+        
+        // Open clicked item if it wasn't active
+        if (!wasActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+    
+    // Contact Form
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Simulation d'envoi
+      const button = e.target.querySelector('button[type="submit"]');
+      const originalText = button.innerHTML;
+      
+      button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Envoi en cours...';
+      button.disabled = true;
+      
+      setTimeout(() => {
+        button.innerHTML = '<i class="fas fa-check mr-2"></i>Message envoyé !';
+        button.classList.add('bg-green-600');
+        
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.disabled = false;
+          button.classList.remove('bg-green-600');
+          e.target.reset();
+        }, 3000);
+      }, 1500);
+    });
+    
+    // Smooth scroll offset for fixed header
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offsetTop = target.offsetTop - 100;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+
+<script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
+
+<script>
+
+// =====================
+// TYPING
+// =====================
+let text = "ヅuju⭕ƒɛɛnŏmɛñ Walk-in";
+let i = 0;
+let typingTimeout;
+
+function type() {
+    const typingElement = document.getElementById("typing");
+
+    if (!typingElement) return;
+
+    if (i < text.length) {
+        typingElement.textContent += text[i];
+        i++;
+        typingTimeout = setTimeout(type, 100);
+    }
+}
+
+function restartTyping() {
+    const typingElement = document.getElementById("typing");
+
+    if (!typingElement) return;
+
+    clearTimeout(typingTimeout);
+
+    typingElement.textContent = "";
+    i = 0;
+
+    type();
+}
+
+
+// =====================
+// NAVIGATION
+// =====================
+function attachTypingRestart(id) {
+    const el = document.getElementById(id);
+
+    if (!el) return;
+
+    el.addEventListener("click", () => {
+        restartTyping();
+    });
+}
+
+
+// =====================
+// INIT
+// =====================
+document.addEventListener("DOMContentLoaded", () => {
+
+    type();
+
+    attachTypingRestart("accueilLink1");
+    attachTypingRestart("accueilLink2");
+    attachTypingRestart("accueilLink3");
+    
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    new Swiper(".heroSwiper", {
+        loop: true,
+
+        autoplay: {
+            delay: 3500,
+            disableOnInteraction: false,
+        },
+
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
+
+});
+</script>
+
+
+<script>
+
+ // ── 🎵 PLAYLIST — ajoute / modifie tes morceaux ici ──
+  const PLAYLIST = [
+    {
+      artist: 'Cindy Pinchart',
+      cover:  'Celle qui danse dans son histoire',
+      url:    'audio/Celle-qui-danse-dans-son-histoire-Cindy-Pinchart.mp4'
+    },
+    {
+      artist: 'J en est rien a foutre',
+      cover:  'ZENAYA',
+      url:    'audio/Zenaya.mp4'
+    },
+    {
+      artist: 'Dreams',
+      cover:  'The Cranberries',
+      url:    'audio/TheCranberriesDreams.mp4'
+    },
+    {
+      artist: 'Running Up That Hill.mp3',
+      cover:  'KateBush',
+      url:    'audio/KateBushRunningUpThatHill.mp3'
+    },
+  ];
+
+  let currentIndex = 0;
+  const audio = new Audio();
+  audio.preload = 'metadata';
+
+  // Éléments du DOM
+  const pauseBtn       = document.querySelector('.pause-btn');
+  const prevBtn        = document.querySelector('.ctrl-btn[title="Previous"]');
+  const nextBtn        = document.querySelector('.ctrl-btn[title="Next"]');
+  const progressTrack  = document.querySelector('.progress-track');
+  const progressFill   = document.querySelector('.progress-fill');
+  const times          = document.querySelectorAll('.time');
+  const currentTimeEl  = times[0];
+  const durationEl     = times[1];
+  const waveformBars   = document.querySelectorAll('.waveform-bar');
+  const trackTitleEl   = document.querySelector('.track-title');
+  const trackArtistEl  = document.querySelector('.track-artist');
+  const coverInnerEl   = document.querySelector('.player-cover-inner');
+
+  const PLAY_ICON  = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>`;
+  const PAUSE_ICON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
+
+  function fmt(s) {
+    const m = Math.floor(s / 60);
+    return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  }
+
+  function loadTrack(index, autoplay = false) {
+    const track = PLAYLIST[index];
+    audio.src = track.url;
+    trackTitleEl.textContent  = track.title;
+    trackArtistEl.textContent = track.artist + ' ✦';
+    coverInnerEl.innerHTML    = track.cover;
+    progressFill.style.width  = '0%';
+    currentTimeEl.textContent = '0:00';
+    durationEl.textContent    = '0:00';
+    waveformBars.forEach(b => b.classList.remove('played'));
+    pauseBtn.innerHTML = PLAY_ICON;
+
+    if (autoplay) {
+      audio.play().then(() => { pauseBtn.innerHTML = PAUSE_ICON; }).catch(() => {});
+    }
+  }
+
+  // Chargement des métadonnées
+  audio.addEventListener('loadedmetadata', () => {
+    durationEl.textContent = fmt(audio.duration);
+  });
+
+  // Progression en temps réel
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    const pct = audio.currentTime / audio.duration;
+    progressFill.style.width  = (pct * 100) + '%';
+    currentTimeEl.textContent = fmt(audio.currentTime);
+    const playedCount = Math.round(pct * waveformBars.length);
+    waveformBars.forEach((bar, i) => bar.classList.toggle('played', i < playedCount));
+  });
+
+  // Fin du morceau → passe au suivant automatiquement
+  audio.addEventListener('ended', () => {
+    currentIndex = (currentIndex + 1) % PLAYLIST.length;
+    loadTrack(currentIndex, true);
+  });
+
+  // Play / Pause
+  pauseBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      pauseBtn.innerHTML = PAUSE_ICON;
+    } else {
+      audio.pause();
+      pauseBtn.innerHTML = PLAY_ICON;
+    }
+  });
+
+  // Morceau précédent
+  prevBtn.addEventListener('click', () => {
+    // Si on est à plus de 3 sec, on revient au début du morceau en cours
+    if (audio.currentTime > 3) {
+      audio.currentTime = 0;
+    } else {
+      currentIndex = (currentIndex - 1 + PLAYLIST.length) % PLAYLIST.length;
+      loadTrack(currentIndex, !audio.paused);
+    }
+  });
+
+  // Morceau suivant
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % PLAYLIST.length;
+    loadTrack(currentIndex, !audio.paused);
+  });
+
+  // Clic sur la barre de progression → seek
+  progressTrack.addEventListener('click', e => {
+    if (!audio.duration) return;
+    const rect = progressTrack.getBoundingClientRect();
+    const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    audio.currentTime = pct * audio.duration;
+  });
+
+  // ── Volume ──
+  const volumeSlider = document.querySelector('.volume-slider');
+  const volumeBtn    = document.querySelector('.volume-btn');
+  let lastVolume = 0.8;
+  audio.volume = 0.8;
+
+  const VOL_ON_ICON  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
+  const VOL_OFF_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+
+  volumeSlider.addEventListener('input', () => {
+    const val = volumeSlider.value / 100;
+    audio.volume = val;
+    lastVolume = val || lastVolume;
+    volumeSlider.style.backgroundSize = volumeSlider.value + '% 100%';
+    volumeBtn.innerHTML = val === 0 ? VOL_OFF_ICON : VOL_ON_ICON;
+  });
+
+  // Clic sur l'icône → mute / unmute
+  volumeBtn.addEventListener('click', () => {
+    if (audio.volume > 0) {
+      lastVolume = audio.volume;
+      audio.volume = 0;
+      volumeSlider.value = 0;
+      volumeSlider.style.backgroundSize = '0% 100%';
+      volumeBtn.innerHTML = VOL_OFF_ICON;
+    } else {
+      audio.volume = lastVolume;
+      volumeSlider.value = lastVolume * 100;
+      volumeSlider.style.backgroundSize = (lastVolume * 100) + '% 100%';
+      volumeBtn.innerHTML = VOL_ON_ICON;
+    }
+  });
+
+  // Chargement initial
+  loadTrack(currentIndex);
+     
+</script>
+
+<script>
+const form = document.getElementById("contact-form");
+
+form.addEventListener("submit", function () {
+    setTimeout(() => {
+        form.style.display = "none";
+        document.getElementById("success-message").classList.remove("hidden");
+    }, 1000);
+});
+</script>
+
+
+</body>
+</html>
