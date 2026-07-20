@@ -3950,30 +3950,6 @@ N'hésitez pas à me faire un mail et je viendrais en direct vous aider à le pl
       });
     });
     
-    // Contact Form
-    document.getElementById('contact-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      // Simulation d'envoi
-      const button = e.target.querySelector('button[type="submit"]');
-      const originalText = button.innerHTML;
-      
-      button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Envoi en cours...';
-      button.disabled = true;
-      
-      setTimeout(() => {
-        button.innerHTML = '<i class="fas fa-check mr-2"></i>Message envoyé !';
-        button.classList.add('bg-green-600');
-        
-        setTimeout(() => {
-          button.innerHTML = originalText;
-          button.disabled = false;
-          button.classList.remove('bg-green-600');
-          e.target.reset();
-        }, 3000);
-      }, 1500);
-    });
-    
     // Smooth scroll offset for fixed header
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
